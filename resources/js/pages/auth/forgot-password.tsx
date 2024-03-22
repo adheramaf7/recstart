@@ -1,9 +1,9 @@
 import GuestLayout from "@/layouts/guest-layout";
 import InputError from "@/components/input-error";
-import PrimaryButton from "@/components/primary-button";
-import TextInput from "@/components/text-input";
 import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -27,28 +27,27 @@ export default function ForgotPassword({ status }: { status?: string }) {
             </div>
 
             {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
+                <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
                 </div>
             )}
 
             <form onSubmit={submit}>
-                <TextInput
+                <Input
                     id="email"
                     type="email"
                     name="email"
                     value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
+                    className="block w-full mt-1"
                     onChange={(e) => setData("email", e.target.value)}
                 />
 
                 <InputError message={errors.email} className="mt-2" />
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <Button className="ms-4" disabled={processing}>
                         Email Password Reset Link
-                    </PrimaryButton>
+                    </Button>
                 </div>
             </form>
         </GuestLayout>

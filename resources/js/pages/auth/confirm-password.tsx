@@ -1,10 +1,10 @@
 import { useEffect, FormEventHandler } from "react";
 import GuestLayout from "@/layouts/guest-layout";
 import InputError from "@/components/input-error";
-import InputLabel from "@/components/input-label";
-import PrimaryButton from "@/components/primary-button";
-import TextInput from "@/components/text-input";
 import { Head, useForm } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -34,15 +34,14 @@ export default function ConfirmPassword() {
 
             <form onSubmit={submit}>
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <Label htmlFor="password">Password</Label>
 
-                    <TextInput
+                    <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
+                        className="block w-full mt-1"
                         onChange={(e) => setData("password", e.target.value)}
                     />
 
@@ -50,9 +49,9 @@ export default function ConfirmPassword() {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <Button className="ms-4" disabled={processing}>
                         Confirm
-                    </PrimaryButton>
+                    </Button>
                 </div>
             </form>
         </GuestLayout>

@@ -1,10 +1,10 @@
 import { useEffect, FormEventHandler } from "react";
 import GuestLayout from "@/layouts/guest-layout";
 import InputError from "@/components/input-error";
-import InputLabel from "@/components/input-label";
-import PrimaryButton from "@/components/primary-button";
-import TextInput from "@/components/text-input";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -32,15 +32,13 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <Label htmlFor="name">Name</Label>
 
-                    <TextInput
+                    <Input
                         id="name"
                         name="name"
                         value={data.name}
-                        className="mt-1 block w-full"
                         autoComplete="name"
-                        isFocused={true}
                         onChange={(e) => setData("name", e.target.value)}
                         required
                     />
@@ -49,14 +47,14 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <Label htmlFor="email">Email</Label>
 
-                    <TextInput
+                    <Input
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
                         required
@@ -66,14 +64,14 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <Label htmlFor="password">Password</Label>
 
-                    <TextInput
+                    <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                         onChange={(e) => setData("password", e.target.value)}
                         required
@@ -83,17 +81,16 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
+                    <Label htmlFor="password_confirmation">
+                        Confirm Password
+                    </Label>
 
-                    <TextInput
+                    <Input
                         id="password_confirmation"
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                         onChange={(e) =>
                             setData("password_confirmation", e.target.value)
@@ -110,14 +107,14 @@ export default function Register() {
                 <div className="flex items-center justify-end mt-4">
                     <Link
                         href={route("login")}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="text-sm text-gray-600 underline rounded-md hover:text-gray-900"
                     >
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <Button className="ms-4" disabled={processing}>
                         Register
-                    </PrimaryButton>
+                    </Button>
                 </div>
             </form>
         </GuestLayout>

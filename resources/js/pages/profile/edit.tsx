@@ -1,15 +1,23 @@
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import DeleteUserForm from './partials/delete-user-form';
-import UpdatePasswordForm from './partials/update-password-form';
-import UpdateProfileInformationForm from './partials/update-profile-information';
-import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import AuthenticatedLayout from "@/layouts/main-layout";
+import DeleteUserForm from "./partials/delete-user-form";
+import UpdatePasswordForm from "./partials/update-password-form";
+import UpdateProfileInformationForm from "./partials/update-profile-information";
+import { Head } from "@inertiajs/react";
+import { PageProps } from "@/types";
 
-export default function Edit({ auth, mustVerifyEmail, status }: PageProps<{ mustVerifyEmail: boolean, status?: string }>) {
+export default function Edit({
+    auth,
+    mustVerifyEmail,
+    status,
+}: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Profile
+                </h2>
+            }
         >
             <Head title="Profile" />
 
