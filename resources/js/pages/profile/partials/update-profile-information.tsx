@@ -1,11 +1,11 @@
 import InputError from "@/components/input-error";
-import InputLabel from "@/components/input-label";
-import PrimaryButton from "@/components/primary-button";
-import TextInput from "@/components/text-input";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { FormEventHandler } from "react";
 import { PageProps } from "@/types";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -44,15 +44,13 @@ export default function UpdateProfileInformation({
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <Label htmlFor="name">Name</Label>
 
-                    <TextInput
+                    <Input
                         id="name"
-                        className="mt-1 block w-full"
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                         required
-                        isFocused
                         autoComplete="name"
                     />
 
@@ -60,12 +58,11 @@ export default function UpdateProfileInformation({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <Label htmlFor="email">Email</Label>
 
-                    <TextInput
+                    <Input
                         id="email"
                         type="email"
-                        className="mt-1 block w-full"
                         value={data.email}
                         onChange={(e) => setData("email", e.target.value)}
                         required
@@ -77,20 +74,20 @@ export default function UpdateProfileInformation({
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="text-sm mt-2 text-gray-800">
+                        <p className="mt-2 text-sm text-gray-800">
                             Your email address is unverified.
                             <Link
                                 href={route("verification.send")}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Click here to re-send the verification email.
                             </Link>
                         </p>
 
                         {status === "verification-link-sent" && (
-                            <div className="mt-2 font-medium text-sm text-green-600">
+                            <div className="mt-2 text-sm font-medium text-green-600">
                                 A new verification link has been sent to your
                                 email address.
                             </div>
@@ -99,7 +96,7 @@ export default function UpdateProfileInformation({
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button disabled={processing}>Save</Button>
 
                     <Transition
                         show={recentlySuccessful}

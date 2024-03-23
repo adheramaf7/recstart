@@ -1,10 +1,10 @@
 import { useRef, FormEventHandler } from "react";
 import InputError from "@/components/input-error";
-import InputLabel from "@/components/input-label";
-import PrimaryButton from "@/components/primary-button";
-import TextInput from "@/components/text-input";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { Button } from "@/components/ui/button";
 
 export default function UpdatePasswordForm({
     className = "",
@@ -63,12 +63,8 @@ export default function UpdatePasswordForm({
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel
-                        htmlFor="current_password"
-                        value="Current Password"
-                    />
-
-                    <TextInput
+                    <Label htmlFor="current_password">Current Password</Label>
+                    <Input
                         id="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
@@ -76,7 +72,7 @@ export default function UpdatePasswordForm({
                             setData("current_password", e.target.value)
                         }
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="current-password"
                     />
 
@@ -87,15 +83,15 @@ export default function UpdatePasswordForm({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <Label htmlFor="current_password">New Password</Label>
 
-                    <TextInput
+                    <Input
                         id="password"
                         ref={passwordInput}
                         value={data.password}
                         onChange={(e) => setData("password", e.target.value)}
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                     />
 
@@ -103,19 +99,16 @@ export default function UpdatePasswordForm({
                 </div>
 
                 <div>
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
+                    <Label htmlFor="current_password">Confirm Password</Label>
 
-                    <TextInput
+                    <Input
                         id="password_confirmation"
                         value={data.password_confirmation}
                         onChange={(e) =>
                             setData("password_confirmation", e.target.value)
                         }
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                     />
 
@@ -126,7 +119,7 @@ export default function UpdatePasswordForm({
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button disabled={processing}>Save</Button>
 
                     <Transition
                         show={recentlySuccessful}
