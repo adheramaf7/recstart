@@ -1,5 +1,6 @@
 import ApplicationLogo from "@/components/application-logo";
 import { ApplicationMenu } from "@/components/application-menu";
+import { ApplicationMenubar } from "@/components/application-menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,
@@ -17,23 +18,25 @@ export default function MainLayout({ children }: PropsWithChildren) {
     const { auth } = usePage<PageProps>().props;
     return (
         <>
-            <header className="fixed top-0 left-0 w-full h-16 bg-white border-b shadow-sm z-[99]">
+            <header className="fixed top-0 left-0 w-screen h-16 bg-white border-b shadow-sm z-[99]">
                 <div className="container flex flex-row items-center justify-between h-full">
                     <ApplicationLogo className="h-10" />
                     <DropdownMenu>
                         <DropdownMenuTrigger className="flex flex-row items-center">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>CN</AvatarFallback>
+                                <AvatarImage src="/images/blank-avatar.png" />
+                                {/* <AvatarFallback>SU</AvatarFallback> */}
                             </Avatar>
                             <div className="flex flex-col items-start ml-3 text-sm">
-                                <p className="font-normal">{auth.user.name}</p>
+                                <p className="font-normal">
+                                    {auth.user.name.toUpperCase()}
+                                </p>
                                 <p className="text-xs text-gray-500">
-                                    {auth.user.email}
+                                    {auth.user.email.toLowerCase()}
                                 </p>
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="z-[99]">
+                        <DropdownMenuContent className="w-52 z-[99]">
                             <Link
                                 href={route("profile.edit")}
                                 className="w-full"
@@ -56,7 +59,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
             <div className="flex flex-col h-full min-h-screen pt-16 bg-gray-100">
                 <nav className="w-full bg-white border-b h-14 ">
                     <div className="container flex items-center h-full">
-                        <ApplicationMenu />
+                        <ApplicationMenubar />
                     </div>
                 </nav>
                 <main className="container pt-4">{children}</main>

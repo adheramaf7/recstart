@@ -27,9 +27,6 @@ export default function Edit({
                 <div className="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
                     <UpdatePasswordForm className="max-w-xl" />
                 </div>
-                <div className="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-                    <DeleteUserForm className="max-w-xl" />
-                </div>
             </div>
         </MainLayout>
     );
