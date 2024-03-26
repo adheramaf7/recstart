@@ -1,4 +1,4 @@
-import { LuLayoutDashboard } from "react-icons/lu";
+import { LuKeyRound, LuLayoutDashboard } from "react-icons/lu";
 import {
     Menubar,
     MenubarCheckboxItem,
@@ -28,31 +28,19 @@ export function ApplicationMenubar() {
                 </MenubarTrigger>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>
+                    <LuKeyRound className="mr-1" /> Access Management
+                </MenubarTrigger>
                 <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+                    <MenubarItem asChild>
+                        <Link href={route("users.index")}>User</Link>
                     </MenubarItem>
-                    <MenubarItem>
-                        New Window <MenubarShortcut>⌘N</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem disabled>New Incognito Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarSub>
-                        <MenubarSubTrigger>Share</MenubarSubTrigger>
-                        <MenubarSubContent>
-                            <MenubarItem>Email link</MenubarItem>
-                            <MenubarItem>Messages</MenubarItem>
-                            <MenubarItem>Notes</MenubarItem>
-                        </MenubarSubContent>
-                    </MenubarSub>
-                    <MenubarSeparator />
-                    <MenubarItem>
-                        Print... <MenubarShortcut>⌘P</MenubarShortcut>
+                    <MenubarItem asChild>
+                        <Link href={route("roles.index")}>Role</Link>
                     </MenubarItem>
                 </MenubarContent>
             </MenubarMenu>
-            <MenubarMenu>
+            {/* <MenubarMenu>
                 <MenubarTrigger>Edit</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
@@ -115,7 +103,7 @@ export function ApplicationMenubar() {
                     <MenubarSeparator />
                     <MenubarItem inset>Add Profile...</MenubarItem>
                 </MenubarContent>
-            </MenubarMenu>
+            </MenubarMenu> */}
         </Menubar>
     );
 }

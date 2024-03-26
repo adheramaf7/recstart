@@ -19,8 +19,8 @@ class UserData extends Data
         public string $name,
         public string $email,
         public ?Carbon $email_verified_at,
-        public ?Carbon $created_at,
-        public ?Carbon $updated_at,
+        public Carbon $created_at,
+        public Carbon $updated_at,
     ) {
     }
 }

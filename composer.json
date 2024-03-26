@@ -14,10 +14,14 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "spatie/laravel-data": "^4.4",
+        "spatie/laravel-permission": "^6.4",
         "spatie/laravel-typescript-transformer": "^2.4",
-        "tightenco/ziggy": "^2.0"
+        "tightenco/ziggy": "^2.0",
+        "wildside/userstamps": "^2.4"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.12",
+        "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.0",
         "laravel/pint": "^1.13",

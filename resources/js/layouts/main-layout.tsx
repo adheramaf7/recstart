@@ -1,12 +1,10 @@
 import ApplicationLogo from "@/components/application-logo";
-import { ApplicationMenu } from "@/components/application-menu";
 import { ApplicationMenubar } from "@/components/application-menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -57,7 +55,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 </div>
             </header>
             <div className="flex flex-col h-full min-h-screen pt-16 bg-gray-100">
-                <nav className="w-full bg-white border-b h-14 ">
+                <nav className="w-full bg-white border-b h-14">
                     <div className="container flex items-center h-full">
                         <ApplicationMenubar />
                     </div>

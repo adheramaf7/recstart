@@ -1,5 +1,5 @@
 import { useRef, FormEventHandler } from "react";
-import InputError from "@/components/input-error";
+import InputError from "@/components/ui/input-error";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { Input } from "@/components/ui/input";

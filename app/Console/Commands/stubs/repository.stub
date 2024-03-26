@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Repositories\BaseRepository;
+
+class {{ class }} extends BaseRepository
+{
+
+    public function __construct({{ model }} ${{ modelVariable }})
+    {
+        $this->model = ${{ modelVariable }};
+    }
+
+}
