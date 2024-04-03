@@ -1,7 +1,12 @@
 import {
     ColumnDef,
+    OnChangeFn,
+    SortingState,
     flexRender,
     getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
 
@@ -13,31 +18,53 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { Button } from "./button";
+import React from "react";
+import { DataTablePagination } from "./data-table-pagination";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    globalFilter?: string;
+    setGlobalFilter?: OnChangeFn<string>;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    globalFilter,
 }: DataTableProps<TData, TValue>) {
+    const [sorting, setSorting] = React.useState<SortingState>([]);
+
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            sorting,
+            globalFilter,
+        },
     });
 
     return (
-        <div className="border rounded-md">
+        <div>
             <Table>
-                <TableHeader>
+                <TableHeader className="bg-gray-100">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
+                                const className =
+                                    header.column.columnDef.meta?.className;
                                 return (
-                                    <TableHead key={header.id}>
+                                    <TableHead
+                                        key={header.id}
+                                        className={cn("px-4", className)}
+                                    >
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
@@ -80,6 +107,7 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
+            <DataTablePagination table={table} />
         </div>
     );
 }

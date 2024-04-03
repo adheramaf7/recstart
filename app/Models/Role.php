@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Role as ModelsRole;
+use Wildside\Userstamps\Userstamps;
 
 class Role extends ModelsRole
 {
+    use Userstamps;
 }

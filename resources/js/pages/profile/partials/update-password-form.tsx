@@ -3,8 +3,8 @@ import InputError from "@/components/ui/input-error";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export default function UpdatePasswordForm({
     className = "",

@@ -4,7 +4,7 @@ import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Dashboard() {
     return (
-        <MainLayout>
+        <MainLayout title="Dashboard">
             <Head title="Dashboard" />
 
             <div className="bg-white shadow-sm sm:rounded-lg">
