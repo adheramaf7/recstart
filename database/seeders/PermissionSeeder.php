@@ -34,10 +34,11 @@ class PermissionSeeder extends Seeder
             return;
         }
 
-        $unusedPermissions = Permission::whereIn('name', $newPermissions)->get();
+        $unusedPermissions = Permission::whereNotIn('name', $newPermissions)->get();
 
         $unusedPermissions->each(function (Permission $permission) {
             $permission->roles()->detach();
+            $permission->delete();
         });
     }
 

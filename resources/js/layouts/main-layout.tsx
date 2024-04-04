@@ -71,7 +71,7 @@ export default function MainLayout({
                     </div>
                     <section>{children}</section>
                 </main>
-                <footer className="container pt-20 pb-4 mt-auto text-xs text-gray-600">
+                <footer className="container pt-10 pb-4 mt-auto text-xs text-gray-600">
                     Copyright &copy; {new Date().getFullYear()}
                 </footer>
             </div>

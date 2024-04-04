@@ -2,9 +2,10 @@ import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { LuChevronLeft } from "react-icons/lu";
-import FormField, { TFormRole } from "./components/form-field";
+import FormField, { TFormUser } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
+import { TUserData } from "./components/columns";
 
 const PageToolbar = () => {
     return (
@@ -18,30 +19,33 @@ const PageToolbar = () => {
     );
 };
 
-type TEditProps = PageProps<{
-    role: Role & { permissions: Permission[] };
-    availablePermissions: Record<PermissionGroup, Permission[]>;
+type EditProps = PageProps<{
+    user: TUserData;
+    roles: Role[];
 }>;
 
-const Edit = ({ role, availablePermissions }: TEditProps) => {
-    const { data, setData, errors, processing, put } = useForm<TFormRole>({
-        name: role.name,
-        permissions: role.permissions.map((value) => value.id),
+const Edit = ({ user, roles }: EditProps) => {
+    const { data, setData, errors, processing, put } = useForm<TFormUser>({
+        name: user.name,
+        email: user.email,
+        password: "",
+        password_confirmation: "",
+        role: user.roles[0].id + "",
     });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        put(route("roles.update", [role.id]));
+        put(route("users.update", [user.id]));
     };
 
     return (
         <MainLayout
-            title="Edit Role"
+            title="Edit User"
             subTitle="Fill the form below to edit data."
             pageToolbar={<PageToolbar />}
         >
-            <Head title="Edit Role" />
+            <Head title="Edit User" />
 
             <form
                 onSubmit={handleSubmit}
@@ -51,7 +55,7 @@ const Edit = ({ role, availablePermissions }: TEditProps) => {
                     data={data}
                     setData={setData}
                     errors={errors}
-                    availablePermissions={availablePermissions}
+                    roles={roles}
                 />
 
                 <Button disabled={processing}>Save</Button>

@@ -4,7 +4,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import { LuChevronLeft } from "react-icons/lu";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
-import FormField, { FormRoleData } from "./components/form-field";
+import FormField, { TFormRole } from "./components/form-field";
 
 const PageToolbar = () => {
     return (
@@ -18,12 +18,12 @@ const PageToolbar = () => {
     );
 };
 
-type CreateProps = PageProps<{
+type TCreateProps = PageProps<{
     availablePermissions: Record<PermissionGroup, Permission[]>;
 }>;
 
-const Create = ({ availablePermissions }: CreateProps) => {
-    const { data, setData, errors, processing, post } = useForm<FormRoleData>({
+const Create = ({ availablePermissions }: TCreateProps) => {
+    const { data, setData, errors, processing, post } = useForm<TFormRole>({
         name: "",
         permissions: [],
     });

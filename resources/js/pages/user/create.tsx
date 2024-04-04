@@ -2,15 +2,15 @@ import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { LuChevronLeft } from "react-icons/lu";
-import FormField, { TFormRole } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
+import FormField, { TFormUser } from "./components/form-field";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button variant={"outline"} asChild>
-                <Link href={route("roles.index")}>
+                <Link href={route("users.index")}>
                     <LuChevronLeft className="mr-2 text-base" /> Back
                 </Link>
             </Button>
@@ -18,30 +18,32 @@ const PageToolbar = () => {
     );
 };
 
-type TEditProps = PageProps<{
-    role: Role & { permissions: Permission[] };
-    availablePermissions: Record<PermissionGroup, Permission[]>;
+type CreateProps = PageProps<{
+    roles: Role[];
 }>;
 
-const Edit = ({ role, availablePermissions }: TEditProps) => {
-    const { data, setData, errors, processing, put } = useForm<TFormRole>({
-        name: role.name,
-        permissions: role.permissions.map((value) => value.id),
+const Create = ({ roles }: CreateProps) => {
+    const { data, setData, errors, processing, post } = useForm<TFormUser>({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        role: "",
     });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        put(route("roles.update", [role.id]));
+        post(route("users.store"));
     };
 
     return (
         <MainLayout
-            title="Edit Role"
-            subTitle="Fill the form below to edit data."
+            title="Create User"
+            subTitle="Fill the form below to create new data."
             pageToolbar={<PageToolbar />}
         >
-            <Head title="Edit Role" />
+            <Head title="Create User" />
 
             <form
                 onSubmit={handleSubmit}
@@ -51,7 +53,7 @@ const Edit = ({ role, availablePermissions }: TEditProps) => {
                     data={data}
                     setData={setData}
                     errors={errors}
-                    availablePermissions={availablePermissions}
+                    roles={roles}
                 />
 
                 <Button disabled={processing}>Save</Button>
@@ -60,4 +62,4 @@ const Edit = ({ role, availablePermissions }: TEditProps) => {
     );
 };
 
-export default Edit;
+export default Create;

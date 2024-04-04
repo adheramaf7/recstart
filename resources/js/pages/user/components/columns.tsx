@@ -2,25 +2,36 @@ import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
 import { ColumnDef } from "@tanstack/react-table";
 import ColumnAction from "./column-action";
 
-export type TRoleData = Role & { users_count: number };
+export type TUserData = User & { roles: Role[] };
 
-export const columns: ColumnDef<TRoleData>[] = [
+export const columns: ColumnDef<TUserData>[] = [
     {
         accessorKey: "name",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Name" />
         ),
         meta: {
-            className: "w-[70%]",
+            className: "w-[30%]",
         },
     },
     {
-        accessorKey: "users_count",
+        accessorKey: "email",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Users Count" />
+            <DataTableColumnHeader column={column} title="Email" />
         ),
         meta: {
-            className: "w-[20%]",
+            className: "w-[30%]",
+        },
+    },
+    {
+        // accessorKey: "roles",
+        id: "role",
+        accessorFn: (row) => row.roles.map((role) => role.name).join(", "),
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Role" />
+        ),
+        meta: {
+            className: "w-[30%]",
         },
     },
     {

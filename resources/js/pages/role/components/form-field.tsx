@@ -7,24 +7,24 @@ import { errorsFormData, setFormData } from "@/types";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { useMemo } from "react";
 
-export interface FormRoleData {
+export type TFormRole = {
     name: string;
     permissions: number[];
-}
+};
 
-interface FormFieldProps {
-    data: FormRoleData;
-    setData: setFormData<FormRoleData>;
-    errors: errorsFormData<FormRoleData>;
+type TFormFieldProps = {
+    data: TFormRole;
+    setData: setFormData<TFormRole>;
+    errors: errorsFormData<TFormRole>;
     availablePermissions: Record<PermissionGroup, Permission[]>;
-}
+};
 
 const FormField = ({
     data,
     setData,
     errors,
     availablePermissions,
-}: FormFieldProps) => {
+}: TFormFieldProps) => {
     const permissionIDs = useMemo(() => {
         return Object.values(availablePermissions)
             .reduce((previous, current) => [...previous, ...current], [])
@@ -55,7 +55,7 @@ const FormField = ({
 
     return (
         <div className="space-y-4">
-            <div className="max-w-lg space-y-2">
+            <div className="max-w-xl space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
                     id="name"

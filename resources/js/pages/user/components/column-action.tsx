@@ -1,5 +1,4 @@
 import React from "react";
-import { TRoleData } from "./columns";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,16 +11,17 @@ import { Button } from "@/components/ui/button";
 import { LuMoreHorizontal } from "react-icons/lu";
 import { Link, router } from "@inertiajs/react";
 import ConfirmDialog from "@/components/ui/confirm-dialog";
+import { TUserData } from "./columns";
 
 type TColumnActionProps = {
-    data: TRoleData;
+    data: TUserData;
 };
 
 function ColumnAction({ data }: TColumnActionProps) {
     const [dialogOpen, setDialogOpen] = React.useState(false);
 
     const onConfirmDelete = () => {
-        router.delete(route("roles.destroy", [data.id]), {
+        router.delete(route("users.destroy", [data.id]), {
             preserveScroll: true,
         });
     };
@@ -39,7 +39,7 @@ function ColumnAction({ data }: TColumnActionProps) {
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <Link
-                        href={route("roles.edit", [data.id])}
+                        href={route("users.edit", [data.id])}
                         className="w-full"
                     >
                         <DropdownMenuItem>Edit</DropdownMenuItem>

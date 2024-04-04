@@ -2,7 +2,7 @@ import { DataTable } from "@/components/ui/data-table";
 import MainLayout from "@/layouts/main-layout";
 import { PageProps } from "@/types";
 import { Head, Link } from "@inertiajs/react";
-import { TRoleData, columns } from "./components/columns";
+import { TUserData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ const PageToolbar = () => {
     return (
         <div>
             <Button asChild>
-                <Link href={route("roles.create")}>
+                <Link href={route("users.create")}>
                     <LuPlusCircle className="mr-2 text-base" /> New Data
                 </Link>
             </Button>
@@ -20,18 +20,18 @@ const PageToolbar = () => {
     );
 };
 
-type TIndexProps = PageProps<{ roles: TRoleData[] }>;
+type IndexProps = PageProps<{ users: TUserData[] }>;
 
-export default function Index({ roles }: TIndexProps) {
+export default function Index({ users }: IndexProps) {
     const [search, setSearch] = useState<string>("");
 
     return (
         <MainLayout
-            title="Manage Roles"
-            subTitle="Manage roles data in here."
+            title="Manage Users"
+            subTitle="Manage users data in here."
             pageToolbar={<PageToolbar />}
         >
-            <Head title="Roles" />
+            <Head title="Users" />
 
             <div className="bg-white rounded-md shadow">
                 <div className="flex flex-row justify-between p-5">
@@ -49,7 +49,7 @@ export default function Index({ roles }: TIndexProps) {
 
                 <DataTable
                     columns={columns}
-                    data={roles}
+                    data={users}
                     globalFilter={search}
                 />
             </div>
