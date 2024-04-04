@@ -58,6 +58,10 @@ class PermissionSeeder extends Seeder
                 'update-role',
                 'delete-role',
             ],
+            PermissionGroup::Profile->name => [
+                'update-profile',
+                'update-password',
+            ],
         ];
     }
 }

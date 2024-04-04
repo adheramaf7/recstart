@@ -19,7 +19,7 @@ function UserDropdown() {
         <DropdownMenu>
             <DropdownMenuTrigger className="relative">
                 <Avatar>
-                    <AvatarImage src="/images/blank-avatar.png" />
+                    <AvatarImage src="/images/profile.png" />
                     {/* <AvatarFallback>SU</AvatarFallback> */}
                 </Avatar>
             </DropdownMenuTrigger>

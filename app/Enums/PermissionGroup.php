@@ -6,4 +6,5 @@ enum PermissionGroup
 {
     case User;
     case Role;
+    case Profile;
 }
