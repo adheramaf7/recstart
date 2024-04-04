@@ -10,6 +10,8 @@ use App\Http\Requests\User\SaveUserRequest;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Utils\FlashMessageBuilder;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -17,11 +19,11 @@ class UserController extends Controller
     function __construct(private UserRepository $userRepository, private RoleRepository $roleRepository)
     {
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
+        Gate::authorize('view-user');
+
         return inertia('user/index', [
             'users' => fn () => $this->userRepository->getAllUsers(withRole: true),
             'roles' => fn () => $this->roleRepository->getAllRoles(),
@@ -33,6 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create-user');
+
         return inertia('user/create', [
             'roles' => fn () => $this->roleRepository->getAllRoles(),
         ]);
@@ -43,6 +47,8 @@ class UserController extends Controller
      */
     public function store(SaveUserRequest $request)
     {
+        Gate::authorize('create-user');
+
         (new StoreUserAction)->execute($request->validated());
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.store.success')));
     }
@@ -60,6 +66,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Gate::authorize('update-user');
+
         $user->load('roles');
 
         return inertia('user/edit', [
@@ -73,6 +81,8 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, User $user)
     {
+        Gate::authorize('update-user');
+
         (new UpdateUserAction)->execute($user, $request->validated());
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.update.success')));
     }
@@ -82,6 +92,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Gate::authorize('delete-user');
+
         (new DeleteUserAction)->execute($user);
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.delete.success')));
     }
