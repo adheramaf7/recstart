@@ -17,10 +17,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
+        console.info(props.initialPage.props);
+
         root.render(<App {...props} />);
     },
     progress: {
-        showSpinner: true,
         color: "#4B5563",
     },
 });

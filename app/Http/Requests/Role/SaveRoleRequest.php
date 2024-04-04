@@ -23,7 +23,8 @@ class SaveRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:100', Rule::unique('roles')->ignore($this->route('role'))],
+            'name'        => ['required', 'string', 'max:100', Rule::unique('roles')->ignore($this->route('role'))],
+            'permissions' => ['required', 'array', 'min:1'],
         ];
     }
 }

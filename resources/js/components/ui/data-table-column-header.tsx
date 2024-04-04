@@ -31,7 +31,7 @@ export function DataTableColumnHeader<TData, TValue>({
         return <div className={cn(className)}>{title}</div>;
     }
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const handleClick = () => {
         if (column.getIsSorted() === false) {
             return column.toggleSorting(false);
         }
@@ -40,40 +40,18 @@ export function DataTableColumnHeader<TData, TValue>({
     };
 
     return (
-        <div className={cn("flex items-center space-x-2", className)}>
-            <Button
-                variant="ghost"
-                className="-ml-3 h-8 data-[state=open]:bg-accent"
-                onClick={handleClick}
-            >
-                <span>{title}</span>
-                {column.getIsSorted() === "desc" ? (
-                    <ArrowDownIcon className="w-4 h-4 ml-2" />
-                ) : column.getIsSorted() === "asc" ? (
-                    <ArrowUpIcon className="w-4 h-4 ml-2" />
-                ) : (
-                    <CaretSortIcon className="w-4 h-4 ml-2" />
-                )}
-            </Button>
-            {/* <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                    <DropdownMenuItem
-                        onClick={() => column.toggleSorting(false)}
-                    >
-                        <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-                        Asc
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => column.toggleSorting(true)}
-                    >
-                        <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-                        Desc
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu> */}
+        <div
+            className={cn("flex items-center  cursor-pointer", className)}
+            onClick={handleClick}
+        >
+            <span>{title}</span>
+            {column.getIsSorted() === "desc" ? (
+                <ArrowDownIcon className="w-4 h-4 ml-2" />
+            ) : column.getIsSorted() === "asc" ? (
+                <ArrowUpIcon className="w-4 h-4 ml-2" />
+            ) : (
+                <CaretSortIcon className="w-4 h-4 ml-2" />
+            )}
         </div>
     );
 }

@@ -15,6 +15,7 @@ class RoleRepository extends BaseRepository
     function getAllRoles()
     {
         return $this->model->query()
+            ->withCount('users')
             ->where('name', '<>', 'Superadmin')
             ->get();
     }

@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { LuChevronLeft } from "react-icons/lu";
+import FormField, { FormRoleData } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
-import FormField, { FormRoleData } from "./components/form-field";
 
 const PageToolbar = () => {
     return (
@@ -18,29 +18,30 @@ const PageToolbar = () => {
     );
 };
 
-type CreateProps = PageProps<{
+type EditProps = PageProps<{
+    role: Role & { permissions: Permission[] };
     availablePermissions: Record<PermissionGroup, Permission[]>;
 }>;
 
-const Create = ({ availablePermissions }: CreateProps) => {
-    const { data, setData, errors, processing, post } = useForm<FormRoleData>({
-        name: "",
-        permissions: [],
+const Edit = ({ role, availablePermissions }: EditProps) => {
+    const { data, setData, errors, processing, put } = useForm<FormRoleData>({
+        name: role.name,
+        permissions: role.permissions.map((value) => value.id),
     });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route("roles.store"));
+        put(route("roles.update", [role.id]));
     };
 
     return (
         <MainLayout
-            title="Create Role"
-            subTitle="Fill the form below to create new data."
+            title="Edit Role"
+            subTitle="Fill the form below to edit data."
             pageToolbar={<PageToolbar />}
         >
-            <Head title="Create Role" />
+            <Head title="Edit Role" />
 
             <form
                 onSubmit={handleSubmit}
@@ -59,4 +60,4 @@ const Create = ({ availablePermissions }: CreateProps) => {
     );
 };
 
-export default Create;
+export default Edit;

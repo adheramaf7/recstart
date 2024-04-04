@@ -23,7 +23,7 @@ function UserDropdown() {
                     {/* <AvatarFallback>SU</AvatarFallback> */}
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-44 z-[99] absolute -right-5">
+            <DropdownMenuContent className="absolute z-50 w-44 -right-5">
                 <DropdownMenuLabel className="flex flex-col space-y-1">
                     <p className="font-medium leading-none truncate">
                         {user.name}

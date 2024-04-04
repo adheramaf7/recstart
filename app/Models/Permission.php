@@ -11,7 +11,7 @@ class Permission extends ModelsPermission
     protected function casts(): array
     {
         return [
-            'group' => PermissionGroup::class,
+            // 'group' => PermissionGroup::class,
         ];
     }
 }

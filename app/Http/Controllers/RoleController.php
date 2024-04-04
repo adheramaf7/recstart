@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Role\DeleteRoleAction;
+use App\Actions\Role\StoreRoleAction;
+use App\Actions\Role\UpdateRoleAction;
 use App\Http\Requests\Role\SaveRoleRequest;
 use App\Models\Role;
+use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
+use App\Utils\FlashMessageBuilder;
 
 class RoleController extends Controller
 {
 
-    function __construct(private RoleRepository $roleRepository)
+    function __construct(private RoleRepository $roleRepository, private PermissionRepository $permissionRepository)
     {
     }
 
@@ -21,7 +26,7 @@ class RoleController extends Controller
         return inertia(
             'role/index',
             [
-                'roles' => $this->roleRepository->all(),
+                'roles' => $this->roleRepository->getAllRoles(),
             ]
         );
     }
@@ -31,7 +36,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return inertia('role/create');
+        return inertia('role/create', [
+            'availablePermissions' => fn () => $this->permissionRepository->getAllPermissionsGrouped(),
+        ]);
     }
 
     /**
@@ -39,7 +46,9 @@ class RoleController extends Controller
      */
     public function store(SaveRoleRequest $request)
     {
-        //
+        (new StoreRoleAction)->execute($request->validated());
+
+        return redirect()->route('roles.index')->with(FlashMessageBuilder::success(__('crud.store.success')));
     }
 
     /**
@@ -55,7 +64,12 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        $role->load('permissions');
+
+        return inertia('role/edit', [
+            'role' => $role,
+            'availablePermissions' => fn () => $this->permissionRepository->getAllPermissionsGrouped(),
+        ]);
     }
 
     /**
@@ -63,7 +77,8 @@ class RoleController extends Controller
      */
     public function update(SaveRoleRequest $request, Role $role)
     {
-        //
+        (new UpdateRoleAction)->execute($role, $request->validated());
+        return redirect()->route('roles.index')->with(FlashMessageBuilder::success(__('crud.update.success')));
     }
 
     /**
@@ -71,6 +86,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        (new DeleteRoleAction)->execute($role);
+        return redirect()->route('roles.index')->with(FlashMessageBuilder::success(__('crud.delete.success')));
     }
 }

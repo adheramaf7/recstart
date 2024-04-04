@@ -52,7 +52,7 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div>
+        <div className="border">
             <Table>
                 <TableHeader className="bg-gray-100">
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -63,7 +63,7 @@ export function DataTable<TData, TValue>({
                                 return (
                                     <TableHead
                                         key={header.id}
-                                        className={cn("px-4", className)}
+                                        className={className}
                                     >
                                         {header.isPlaceholder
                                             ? null

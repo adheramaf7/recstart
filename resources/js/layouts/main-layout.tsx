@@ -1,16 +1,47 @@
 import ApplicationLogo from "@/components/application-logo";
 import { ApplicationMenubar } from "@/components/application-menubar";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import UserDropdown from "@/components/user-dropdown";
-import { PropsWithChildren } from "react";
+import { PageProps } from "@/types";
+import { usePage } from "@inertiajs/react";
+import React, { PropsWithChildren, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function MainLayout({
     children,
     title,
     subTitle,
-}: PropsWithChildren<{ title: string; subTitle?: string }>) {
+    pageToolbar,
+}: PropsWithChildren<{
+    title: string;
+    subTitle?: string;
+    pageToolbar?: React.ReactNode;
+}>) {
+    const pageProps = usePage<PageProps>().props;
+
+    useEffect(() => {
+        if (pageProps.flash?.type == "success") {
+            toast.success(pageProps.flash.message);
+        } else if (pageProps.flash?.type == "error") {
+            toast.error(pageProps.flash.message);
+        }
+
+        return () => {
+            toast.remove();
+            console.log("cleanup toast");
+        };
+    }, [pageProps.flash?.id]);
+
     return (
         <>
-            <header className="fixed top-0 w-screen h-16 bg-white border-b shadow-sm z-[99]">
+            <header className="fixed top-0 z-50 w-screen h-16 bg-white border-b shadow-sm">
                 <div className="container flex flex-row items-center justify-between h-full">
                     <ApplicationLogo className="h-10" />
                     <UserDropdown />
@@ -36,6 +67,7 @@ export default function MainLayout({
                                 </p>
                             )}
                         </div>
+                        <div>{pageToolbar}</div>
                     </div>
                     <section>{children}</section>
                 </main>
@@ -43,6 +75,7 @@ export default function MainLayout({
                     Copyright &copy; {new Date().getFullYear()}
                 </footer>
             </div>
+            <Toaster position="top-center" />
         </>
     );
 }
