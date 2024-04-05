@@ -1,1 +1,1 @@
-type PermissionGroup = 'User' | 'Role';
+type PermissionGroup = 'User' | 'Role' | 'Profile';
