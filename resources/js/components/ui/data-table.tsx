@@ -51,7 +51,6 @@ export function DataTable<TData, TValue>({
         state: {
             sorting,
             globalFilter,
-            columnFilters,
         },
     });
 

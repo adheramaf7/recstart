@@ -1,6 +1,8 @@
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import { ColumnDef } from "@tanstack/react-table";
 import ColumnAction from "./column-action";
+import { Link } from "@inertiajs/react";
+import { Badge } from "@/components/ui/badge";
 
 export type TRoleData = Role & { users_count: number };
 
@@ -21,6 +23,17 @@ export const columns: ColumnDef<TRoleData>[] = [
         ),
         meta: {
             className: "w-[20%]",
+        },
+        cell: ({ row, getValue, column }) => {
+            const url = route("users.index", { roles: [row.original.id] });
+
+            return (
+                <Link href={url}>
+                    <Badge variant={"secondary"}>
+                        {row.original.users_count} Users
+                    </Badge>
+                </Link>
+            );
         },
     },
     {
