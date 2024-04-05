@@ -35,8 +35,7 @@ class GeneralException extends Exception
      */
     public function render(Request $request)
     {
-        return redirect()
-            ->back()
+        return back()
             ->with(FlashMessageBuilder::error($this->message));
     }
 }

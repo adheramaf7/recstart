@@ -19,12 +19,11 @@ class UserController extends Controller
 
     function __construct(private UserRepository $userRepository, private RoleRepository $roleRepository)
     {
+        $this->authorizeResource(User::class, 'user');
     }
 
     public function index(Request $request)
     {
-        Gate::authorize('view-user');
-
         return inertia('user/index', [
             'users'   => fn () => $this->userRepository->getAllUsers(withRole: true, roles: $request->query('roles', [])),
             'roles'   => fn () => $this->roleRepository->getAllRoles(withUsersCount: true),
@@ -34,8 +33,6 @@ class UserController extends Controller
 
     public function create()
     {
-        Gate::authorize('create-user');
-
         return inertia('user/create', [
             'roles' => fn () => $this->roleRepository->getAllRoles(),
         ]);
@@ -43,8 +40,6 @@ class UserController extends Controller
 
     public function store(SaveUserRequest $request)
     {
-        Gate::authorize('create-user');
-
         (new StoreUserAction)->execute($request->validated());
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.store.success')));
     }
@@ -56,8 +51,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        Gate::authorize('update-user');
-
         $user->load('roles');
 
         return inertia('user/edit', [
@@ -68,16 +61,12 @@ class UserController extends Controller
 
     public function update(SaveUserRequest $request, User $user)
     {
-        Gate::authorize('update-user');
-
         (new UpdateUserAction)->execute($user, $request->validated());
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.update.success')));
     }
 
     public function destroy(User $user)
     {
-        Gate::authorize('delete-user');
-
         (new DeleteUserAction)->execute($user);
         return redirect()->route('users.index')->with(FlashMessageBuilder::success(__('crud.delete.success')));
     }
