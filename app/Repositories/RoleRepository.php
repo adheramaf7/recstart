@@ -12,10 +12,10 @@ class RoleRepository extends BaseRepository
         $this->model = $role;
     }
 
-    function getAllRoles()
+    function getAllRoles(bool $withUsersCount = false)
     {
         return $this->model->query()
-            ->withCount('users')
+            ->when($withUsersCount, fn ($query) => $query->withCount('users'))
             ->where('name', '<>', 'Superadmin')
             ->get();
     }

@@ -1,7 +1,6 @@
 import { useRef, FormEventHandler } from "react";
 import InputError from "@/components/ui/input-error";
 import { useForm } from "@inertiajs/react";
-import { Transition } from "@headlessui/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -120,16 +119,6 @@ export default function UpdatePasswordForm({
 
                 <div className="flex items-center gap-4">
                     <Button disabled={processing}>Save</Button>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
                 </div>
             </form>
         </section>

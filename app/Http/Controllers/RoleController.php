@@ -26,7 +26,7 @@ class RoleController extends Controller
         return inertia(
             'role/index',
             [
-                'roles' => $this->roleRepository->getAllRoles(),
+                'roles' => $this->roleRepository->getAllRoles(withUsersCount: true),
             ]
         );
     }

@@ -1,5 +1,6 @@
 import {
     ColumnDef,
+    ColumnFiltersState,
     OnChangeFn,
     SortingState,
     flexRender,
@@ -27,6 +28,7 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     globalFilter?: string;
+    columnFilters?: ColumnFiltersState;
     setGlobalFilter?: OnChangeFn<string>;
 }
 
@@ -34,6 +36,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     globalFilter,
+    columnFilters,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -48,6 +51,7 @@ export function DataTable<TData, TValue>({
         state: {
             sorting,
             globalFilter,
+            columnFilters,
         },
     });
 

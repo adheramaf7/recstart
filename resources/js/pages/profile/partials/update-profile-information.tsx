@@ -1,6 +1,5 @@
 import InputError from "@/components/ui/input-error";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { Transition } from "@headlessui/react";
 import { FormEventHandler } from "react";
 import { PageProps } from "@/types";
 import { Label } from "@/components/ui/label";
@@ -97,16 +96,6 @@ export default function UpdateProfileInformation({
 
                 <div className="flex items-center gap-4">
                     <Button disabled={processing}>Save</Button>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
                 </div>
             </form>
         </section>
