@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
-
-    function __construct(private RoleRepository $roleRepository, private PermissionRepository $permissionRepository)
-    {
+    function __construct(
+        private RoleRepository $roleRepository, 
+        private PermissionRepository $permissionRepository
+    ) {
+        $this->authorizeResource(Role::class, 'role');
     }
 
     public function index()
