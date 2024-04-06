@@ -11,7 +11,7 @@ const PageToolbar = () => {
     return (
         <div>
             <Button variant={"outline"} asChild>
-                <Link href={route("roles.index")}>
+                <Link href={route("users.index")}>
                     <LuChevronLeft className="mr-2 text-base" /> Back
                 </Link>
             </Button>

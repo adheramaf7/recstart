@@ -31,6 +31,8 @@ export default function MainLayout({
             toast.success(pageProps.flash.message);
         } else if (pageProps.flash?.type == "error") {
             toast.error(pageProps.flash.message);
+        } else {
+            toast.remove();
         }
 
         return () => {

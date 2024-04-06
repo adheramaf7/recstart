@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Log;
 class GeneralException extends Exception
 {
 
-
-    public function __construct(public string $message, public $data = null, $code = 0, Throwable $previous = null)
+    public function __construct(protected $message = '', $code = 0, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

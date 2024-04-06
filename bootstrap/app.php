@@ -1,13 +1,18 @@
 <?php
 
+use App\Utils\FlashMessageBuilder;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
+use Inertia\Inertia;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -19,5 +24,28 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            if (in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                $isInertiaRequest = $request->header('X-Inertia') == 'true';
+
+                if ($isInertiaRequest) {
+                    return back()->with(FlashMessageBuilder::fromHttpErrorCode($response->getStatusCode()));
+                }
+
+                return Inertia::render('error', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            } elseif ($response->getStatusCode() === 419) {
+                $isInertiaRequest = $request->header('X-Inertia') == 'true';
+
+                if ($isInertiaRequest) {
+                    return back()->with(FlashMessageBuilder::error('The page expired, please try again.'));
+                }
+
+                return $response;
+            }
+
+            return $response;
+        });
+    })
+    ->create();

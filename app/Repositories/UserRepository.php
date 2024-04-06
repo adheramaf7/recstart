@@ -17,7 +17,7 @@ class UserRepository extends BaseRepository
         return $this->model->query()
             ->when($withRole, fn ($query) => $query->with('roles'))
             ->when(count($roles) > 0, fn ($query) => $query->whereHas('roles', fn ($query) => $query->whereIn('id', $roles)))
-            ->where('id', '<>', 1)
+            ->whereDoesntHave('roles', fn ($query) => $query->where('name', 'Superadmin'))
             ->get();
     }
 }
