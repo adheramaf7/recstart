@@ -11,6 +11,8 @@ class PermissionSeeder extends Seeder
 
     public function run(): void
     {
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         $list = $this->list();
 
         $inserted = [];
