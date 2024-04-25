@@ -94,42 +94,38 @@ const FormField = ({
                         </Button>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
                     {Object.entries(availablePermissions).map(
                         ([group, permissions]) => (
                             <div className="rounded-sm shadow-sm" key={group}>
                                 <div className="p-1 text-sm font-semibold text-gray-500 bg-gray-100 border-b">
                                     {group}
                                 </div>
-                                <div className="flex flex-row gap-3 p-2 pl-3">
+                                <div className="flex flex-col gap-3 p-2 pl-3 ">
                                     {permissions.map((permission) => (
-                                        <div
-                                            className="inline"
+                                        <label
+                                            className="flex items-center"
                                             key={permission.id}
                                         >
-                                            <label className="flex items-center">
-                                                <Checkbox
-                                                    value={permission.id}
-                                                    checked={data.permissions.includes(
-                                                        permission.id
-                                                    )}
-                                                    onCheckedChange={(
+                                            <Checkbox
+                                                value={permission.id}
+                                                checked={data.permissions.includes(
+                                                    permission.id
+                                                )}
+                                                onCheckedChange={(checked) => {
+                                                    handleCheckedChange(
+                                                        permission.id,
                                                         checked
-                                                    ) => {
-                                                        handleCheckedChange(
-                                                            permission.id,
-                                                            checked
-                                                        );
-                                                    }}
-                                                />
-                                                <span className="text-sm ms-2">
-                                                    {permission.name.replaceAll(
-                                                        "-",
-                                                        " "
-                                                    )}
-                                                </span>
-                                            </label>
-                                        </div>
+                                                    );
+                                                }}
+                                            />
+                                            <span className="text-sm ms-2">
+                                                {permission.name.replaceAll(
+                                                    "-",
+                                                    " "
+                                                )}
+                                            </span>
+                                        </label>
                                     ))}
                                 </div>
                             </div>
