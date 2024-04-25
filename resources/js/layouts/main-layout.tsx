@@ -41,8 +41,7 @@ export default function MainLayout({
             <header className="fixed top-0 z-50 w-screen h-16 bg-white border-b shadow-sm">
                 <div className="container flex flex-row items-center justify-between h-full">
                     <div className="flex flex-row">
-                        <ApplicationSheetMenu
-                        />
+                        <ApplicationSheetMenu />
                         <ApplicationLogo className="h-10" />
                     </div>
                     <UserDropdown />

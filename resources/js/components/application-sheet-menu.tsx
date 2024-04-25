@@ -10,15 +10,9 @@ import {
 import { Button } from "./ui/button";
 import { LuGanttChart } from "react-icons/lu";
 
-type TApplicationSheetMenuProps = {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-};
+type TApplicationSheetMenuProps = {};
 
-function ApplicationSheetMenu({
-    open,
-    onOpenChange,
-}: TApplicationSheetMenuProps) {
+function ApplicationSheetMenu(props: TApplicationSheetMenuProps) {
     return (
         <Sheet>
             <SheetTrigger asChild>
