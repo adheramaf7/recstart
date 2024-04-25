@@ -1,18 +1,13 @@
 import ApplicationLogo from "@/components/application-logo";
 import { ApplicationMenubar } from "@/components/application-menubar";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import ApplicationSheetMenu from "@/components/application-sheet-menu";
+import { Button } from "@/components/ui/button";
 import UserDropdown from "@/components/user-dropdown";
 import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { LuGanttChart } from "react-icons/lu";
 
 export default function MainLayout({
     children,
@@ -45,12 +40,16 @@ export default function MainLayout({
         <>
             <header className="fixed top-0 z-50 w-screen h-16 bg-white border-b shadow-sm">
                 <div className="container flex flex-row items-center justify-between h-full">
-                    <ApplicationLogo className="h-10" />
+                    <div className="flex flex-row">
+                        <ApplicationSheetMenu
+                        />
+                        <ApplicationLogo className="h-10" />
+                    </div>
                     <UserDropdown />
                 </div>
             </header>
             <div className="flex flex-col h-full min-h-screen pt-16 bg-gray-100">
-                <nav className="w-full bg-white border-b h-14">
+                <nav className="hidden w-full bg-white border-b h-14 md:block">
                     <div className="container flex items-center h-full">
                         <ApplicationMenubar />
                     </div>
