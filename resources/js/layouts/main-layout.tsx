@@ -42,7 +42,7 @@ export default function MainLayout({
                 <div className="container flex flex-row items-center justify-between h-full">
                     <div className="flex flex-row">
                         <ApplicationSheetMenu />
-                        <ApplicationLogo className="h-10" />
+                        <ApplicationLogo className="hidden h-10 md:block" />
                     </div>
                     <UserDropdown />
                 </div>
