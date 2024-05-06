@@ -20,6 +20,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        Gate::any(['update-profile', 'update-password']);
+
+
         return Inertia::render('profile/edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),

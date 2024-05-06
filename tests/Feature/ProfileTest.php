@@ -21,7 +21,7 @@ class ProfileTest extends TestCase
 
     public function test_profile_page_is_displayed(): void
     {
-        $user = User::factory()->grantPermissions('update-profile')->create();
+        $user = User::factory()->grantPermissions(['update-profile', 'update-password'])->create();
 
         $response = $this
             ->actingAs($user)
