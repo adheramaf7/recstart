@@ -8,7 +8,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User;
     };
-    flash: FlashMessage | null
+    flash: FlashMessage | null,
+    permissions: string[] | null,
 };
 
 type setDataByObject<TForm> = (data: TForm) => void;
