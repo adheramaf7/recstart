@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Data\UserData;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,7 +41,22 @@ class HandleInertiaRequests extends Middleware
                 'type'    => fn () => $request->session()->get('flash_type'),
                 'message' => fn () => $request->session()->get('flash_message'),
             ],
-            'granted_permissions' => fn () => [],
+            'permissions' => function () use ($request) {
+                $user = $request->user();
+
+                if ($request->user() == null) {
+                    return null;
+                }
+
+                if ($user->hasRole('Superadmin')) {
+                    return Permission::all()->pluck('name')->toArray();
+                }
+
+                $rolesWithPermissions = $user->roles()->with('permissions:name')->get();
+                $permissions = $rolesWithPermissions->pluck('permissions')->flatten()->pluck('name')->toArray();
+
+                return $permissions;
+            },
         ];
     }
 }

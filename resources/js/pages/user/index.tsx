@@ -83,8 +83,6 @@ export default function Index({ users, roles, filters }: IndexProps) {
         }
     }, [debouncedDataFilter]);
 
-    console.info(dataFilter);
-
     return (
         <MainLayout
             title="Manage Users"

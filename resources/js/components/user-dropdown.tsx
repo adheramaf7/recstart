@@ -7,6 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { usePermission } from "@/hooks/use-permission";
 import { PageProps } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 
@@ -14,6 +15,8 @@ function UserDropdown() {
     const {
         auth: { user },
     } = usePage<PageProps>().props;
+
+    const { can } = usePermission();
 
     return (
         <DropdownMenu>
@@ -33,12 +36,16 @@ function UserDropdown() {
                     </p>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={route("profile.edit")} className="w-full">
-                    <DropdownMenuItem className="cursor-pointer">
-                        Profile
-                    </DropdownMenuItem>
-                </Link>
-                <DropdownMenuSeparator />
+                {can("update-profile", "update-password") && (
+                    <>
+                        <Link href={route("profile.edit")} className="w-full">
+                            <DropdownMenuItem className="cursor-pointer">
+                                Profile
+                            </DropdownMenuItem>
+                        </Link>
+                        <DropdownMenuSeparator />
+                    </>
+                )}
                 <Link
                     href={route("logout")}
                     method="post"
