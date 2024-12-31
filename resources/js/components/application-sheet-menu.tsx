@@ -1,26 +1,7 @@
-import React from "react";
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
-import {
-    LuChevronDown,
-    LuGanttChart,
-    LuKeyRound,
-    LuLayoutDashboard,
-    LuMoreHorizontal,
-} from "react-icons/lu";
+import { LuAlbum, LuKeyRound, LuLayoutDashboard } from "react-icons/lu";
 import { Link } from "@inertiajs/react";
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "./ui/collapsible";
 import ApplicationLogo from "./application-logo";
 import { ScrollArea } from "./ui/scroll-area";
 import { usePermission } from "@/hooks/use-permission";
@@ -40,7 +21,7 @@ function ApplicationSheetMenu(props: TApplicationSheetMenuProps) {
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant={"ghost"} className="block md:hidden">
-                    <LuGanttChart className="text-2xl" />
+                    <LuAlbum className="text-2xl" />
                 </Button>
             </SheetTrigger>
             <SheetContent side={"left"} className="w-[65%] pr-5">

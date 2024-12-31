@@ -6,14 +6,14 @@ import { TRoleData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuPlusCircle, LuSearch } from "react-icons/lu";
+import { LuPlus, LuSearch } from "react-icons/lu";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button asChild>
                 <Link href={route("roles.create")}>
-                    <LuPlusCircle className="mr-2 text-base" /> New Data
+                    <LuPlus className="mr-2 text-base" /> New Data
                 </Link>
             </Button>
         </div>

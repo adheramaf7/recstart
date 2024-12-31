@@ -6,7 +6,7 @@ import { TUserData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuFilter, LuFilterX, LuPlusCircle, LuSearch } from "react-icons/lu";
+import { LuFilter, LuFilterX, LuPlus, LuSearch } from "react-icons/lu";
 import {
     Popover,
     PopoverContent,
@@ -23,7 +23,7 @@ const PageToolbar = () => {
         <div>
             <Button asChild>
                 <Link href={route("users.create")}>
-                    <LuPlusCircle className="mr-2 text-base" /> New Data
+                    <LuPlus className="mr-2 text-base" /> New Data
                 </Link>
             </Button>
         </div>
