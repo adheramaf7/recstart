@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { LuChevronLeft } from "react-icons/lu";
 import FormField, { TFormUser } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
 import { TUserData } from "./components/columns";
+import { ChevronLeftIcon } from "lucide-react";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button variant={"outline"} asChild>
                 <Link href={route("users.index")}>
-                    <LuChevronLeft className="mr-2 text-base" /> Back
+                    <ChevronLeftIcon className="mr-2 text-base" /> Back
                 </Link>
             </Button>
         </div>

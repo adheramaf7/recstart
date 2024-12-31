@@ -1,6 +1,5 @@
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { LuAlbum, LuKeyRound, LuLayoutDashboard } from "react-icons/lu";
 import { Link } from "@inertiajs/react";
 import ApplicationLogo from "./application-logo";
 import { ScrollArea } from "./ui/scroll-area";
@@ -11,6 +10,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "./ui/accordion";
+import {
+    KeyRoundIcon,
+    LayoutDashboardIcon,
+    MoreVerticalIcon,
+} from "lucide-react";
 
 type TApplicationSheetMenuProps = {};
 
@@ -21,7 +25,7 @@ function ApplicationSheetMenu(props: TApplicationSheetMenuProps) {
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant={"ghost"} className="block md:hidden">
-                    <LuAlbum className="text-2xl" />
+                    <MoreVerticalIcon className="text-2xl" />
                 </Button>
             </SheetTrigger>
             <SheetContent side={"left"} className="w-[65%] pr-5">
@@ -62,7 +66,7 @@ function ApplicationSheetMenu(props: TApplicationSheetMenuProps) {
                             href={route("dashboard")}
                             className="flex flex-row items-center font-medium"
                         >
-                            <LuLayoutDashboard className="mr-2" />
+                            <LayoutDashboardIcon className="mr-2" />
                             Dashboard
                         </Link>
                         {can("view-user", "view-role") && (
@@ -72,7 +76,7 @@ function ApplicationSheetMenu(props: TApplicationSheetMenuProps) {
                             >
                                 <AccordionTrigger className="text-base font-medium">
                                     <div className="flex flex-row items-center">
-                                        <LuKeyRound className="mr-2" />
+                                        <KeyRoundIcon className="mr-2" />
                                         Access Management
                                     </div>
                                 </AccordionTrigger>

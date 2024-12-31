@@ -9,15 +9,9 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-    LuMoreHorizontal,
-    LuPen,
-    LuPencil,
-    LuTrash,
-    LuTrash2,
-} from "react-icons/lu";
 import { Link, router } from "@inertiajs/react";
 import ConfirmDialog from "@/components/ui/confirm-dialog";
+import { PencilIcon, TrashIcon } from "lucide-react";
 
 type TColumnActionProps = {
     data: TRoleData;
@@ -57,7 +51,7 @@ function ColumnAction({ data }: TColumnActionProps) {
             </DropdownMenu> */}
             <Button variant={"ghost"} size={"icon"} asChild>
                 <Link href={route("roles.edit", [data.id])}>
-                    <LuPencil className="text-gray-600" />
+                    <PencilIcon className="text-gray-600" />
                 </Link>
             </Button>
             <Button
@@ -65,7 +59,7 @@ function ColumnAction({ data }: TColumnActionProps) {
                 size={"icon"}
                 onClick={() => setDialogOpen(true)}
             >
-                <LuTrash2 className="text-gray-600" />
+                <TrashIcon className="text-gray-600" />
             </Button>
             <ConfirmDialog
                 isOpen={dialogOpen}

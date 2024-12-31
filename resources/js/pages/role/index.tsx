@@ -6,14 +6,14 @@ import { TRoleData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuPlus, LuSearch } from "react-icons/lu";
+import { PlusCircleIcon, SearchIcon } from "lucide-react";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button asChild>
                 <Link href={route("roles.create")}>
-                    <LuPlus className="mr-2 text-base" /> New Data
+                    <PlusCircleIcon className="mr-2 text-base" /> New Data
                 </Link>
             </Button>
         </div>
@@ -36,7 +36,7 @@ export default function Index({ roles }: TIndexProps) {
             <div className="bg-white rounded-md shadow">
                 <div className="flex flex-row justify-between p-5">
                     <div className="relative flex items-center w-full max-w-xs">
-                        <LuSearch className="absolute ml-2 text-gray-400" />
+                        <SearchIcon className="absolute ml-2 text-gray-400" />
                         <Input
                             type="search"
                             value={search}

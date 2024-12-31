@@ -6,7 +6,6 @@ import { TUserData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuFilter, LuFilterX, LuPlus, LuSearch } from "react-icons/lu";
 import {
     Popover,
     PopoverContent,
@@ -17,13 +16,19 @@ import { CheckedState } from "@radix-ui/react-checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useDebounce } from "use-debounce";
+import {
+    FilterIcon,
+    FilterXIcon,
+    PlusCircleIcon,
+    SearchIcon,
+} from "lucide-react";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button asChild>
                 <Link href={route("users.create")}>
-                    <LuPlus className="mr-2 text-base" /> New Data
+                    <PlusCircleIcon className="mr-2 text-base" /> New Data
                 </Link>
             </Button>
         </div>
@@ -94,7 +99,7 @@ export default function Index({ users, roles, filters }: IndexProps) {
             <div className="bg-white rounded-md shadow">
                 <div className="flex flex-row p-5 gap-x-2">
                     <div className="relative flex items-center w-full max-w-xs">
-                        <LuSearch className="absolute ml-2 text-gray-400" />
+                        <SearchIcon className="absolute ml-2 text-gray-400" />
                         <Input
                             type="search"
                             value={search}
@@ -107,9 +112,9 @@ export default function Index({ users, roles, filters }: IndexProps) {
                         <PopoverTrigger asChild>
                             <Button variant="outline" className="text-gray-700">
                                 {dataFilter.roles.length > 0 ? (
-                                    <LuFilterX className="mr-2" />
+                                    <FilterIcon className="mr-2" />
                                 ) : (
-                                    <LuFilter className="mr-2" />
+                                    <FilterXIcon className="mr-2" />
                                 )}{" "}
                                 Role
                                 {dataFilter.roles.length > 0 && (
