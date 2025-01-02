@@ -1,29 +1,16 @@
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import FormField, { TFormRole } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
-import { ChevronLeftIcon } from "lucide-react";
-
-const PageToolbar = () => {
-    return (
-        <div>
-            <Button variant={"outline"} asChild>
-                <Link href={route("roles.index")}>
-                    <ChevronLeftIcon className="mr-2 text-base" /> Back
-                </Link>
-            </Button>
-        </div>
-    );
-};
 
 type TEditProps = PageProps<{
     role: Role & { permissions: Permission[] };
     availablePermissions: Record<PermissionGroup, Permission[]>;
 }>;
 
-const Edit = ({ role, availablePermissions }: TEditProps) => {
+export default function Edit({ role, availablePermissions }: TEditProps) {
     const { data, setData, errors, processing, put } = useForm<TFormRole>({
         name: role.name,
         permissions: role.permissions.map((value) => value.id),
@@ -36,28 +23,27 @@ const Edit = ({ role, availablePermissions }: TEditProps) => {
     };
 
     return (
-        <MainLayout
-            title="Edit Role"
-            subTitle="Fill the form below to edit data."
-            pageToolbar={<PageToolbar />}
+        <form
+            onSubmit={handleSubmit}
+            className="p-5 space-y-10 bg-white rounded-md shadow"
         >
-            <Head title="Edit Role" />
+            <FormField
+                data={data}
+                setData={setData}
+                errors={errors}
+                availablePermissions={availablePermissions}
+            />
 
-            <form
-                onSubmit={handleSubmit}
-                className="p-5 space-y-10 bg-white rounded-md shadow"
-            >
-                <FormField
-                    data={data}
-                    setData={setData}
-                    errors={errors}
-                    availablePermissions={availablePermissions}
-                />
-
+            <div className="flex gap-2">
                 <Button disabled={processing}>Save</Button>
-            </form>
-        </MainLayout>
+                <Button disabled={processing} variant={"outline"} asChild>
+                    <Link href={route("roles.index")}>Cancel</Link>
+                </Button>
+            </div>
+        </form>
     );
-};
+}
 
-export default Edit;
+Edit.layout = (page: React.ReactNode) => (
+    <MainLayout title="Edit Role" children={page} />
+);

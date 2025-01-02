@@ -1,28 +1,15 @@
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
 import FormField, { TFormRole } from "./components/form-field";
-import { ChevronLeftIcon } from "lucide-react";
-
-const PageToolbar = () => {
-    return (
-        <div>
-            <Button variant={"outline"} asChild>
-                <Link href={route("roles.index")}>
-                    <ChevronLeftIcon className="mr-2 text-base" /> Back
-                </Link>
-            </Button>
-        </div>
-    );
-};
 
 type TCreateProps = PageProps<{
     availablePermissions: Record<PermissionGroup, Permission[]>;
 }>;
 
-const Create = ({ availablePermissions }: TCreateProps) => {
+export default function Create({ availablePermissions }: TCreateProps) {
     const { data, setData, errors, processing, post } = useForm<TFormRole>({
         name: "",
         permissions: [],
@@ -35,28 +22,27 @@ const Create = ({ availablePermissions }: TCreateProps) => {
     };
 
     return (
-        <MainLayout
-            title="Create Role"
-            subTitle="Fill the form below to create new data."
-            pageToolbar={<PageToolbar />}
+        <form
+            onSubmit={handleSubmit}
+            className="p-5 space-y-10 bg-white rounded-md shadow"
         >
-            <Head title="Create Role" />
+            <FormField
+                data={data}
+                setData={setData}
+                errors={errors}
+                availablePermissions={availablePermissions}
+            />
 
-            <form
-                onSubmit={handleSubmit}
-                className="p-5 space-y-10 bg-white rounded-md shadow"
-            >
-                <FormField
-                    data={data}
-                    setData={setData}
-                    errors={errors}
-                    availablePermissions={availablePermissions}
-                />
-
+            <div className="flex gap-2">
                 <Button disabled={processing}>Save</Button>
-            </form>
-        </MainLayout>
+                <Button disabled={processing} variant={"outline"} asChild>
+                    <Link href={route("roles.index")}>Cancel</Link>
+                </Button>
+            </div>
+        </form>
     );
-};
+}
 
-export default Create;
+Create.layout = (page: React.ReactNode) => (
+    <MainLayout title="Create Role" children={page} />
+);

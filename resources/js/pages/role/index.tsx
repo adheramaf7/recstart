@@ -8,51 +8,39 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, SearchIcon } from "lucide-react";
 
-const PageToolbar = () => {
-    return (
-        <div>
-            <Button asChild>
-                <Link href={route("roles.create")}>
-                    <PlusCircleIcon className="mr-2 text-base" /> New Data
-                </Link>
-            </Button>
-        </div>
-    );
-};
-
 type TIndexProps = PageProps<{ roles: TRoleData[] }>;
 
 export default function Index({ roles }: TIndexProps) {
     const [search, setSearch] = useState<string>("");
 
     return (
-        <MainLayout
-            title="Manage Roles"
-            subTitle="Manage roles data in here."
-            pageToolbar={<PageToolbar />}
-        >
-            <Head title="Roles" />
-
-            <div className="bg-white rounded-md shadow">
-                <div className="flex flex-row justify-between p-5">
-                    <div className="relative flex items-center w-full max-w-xs">
-                        <SearchIcon className="absolute ml-2 text-gray-400" />
-                        <Input
-                            type="search"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Type here to search..."
-                            className="pl-8 placeholder:text-gray-400"
-                        />
-                    </div>
+        <div className="bg-white rounded-md shadow">
+            <div className="flex flex-row justify-between p-5">
+                <div className="relative flex items-center w-full max-w-xs">
+                    <SearchIcon className="absolute ml-2 text-gray-400" />
+                    <Input
+                        type="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Type here to search..."
+                        className="pl-8 placeholder:text-gray-400"
+                    />
                 </div>
-
-                <DataTable
-                    columns={columns}
-                    data={roles}
-                    globalFilter={search}
-                />
+                <div>
+                    <Button asChild>
+                        <Link href={route("roles.create")}>
+                            <PlusCircleIcon className="mr-2 text-base" /> New
+                            Data
+                        </Link>
+                    </Button>
+                </div>
             </div>
-        </MainLayout>
+
+            <DataTable columns={columns} data={roles} globalFilter={search} />
+        </div>
     );
 }
+
+Index.layout = (page: React.ReactNode) => (
+    <MainLayout title="Roles Management" children={page} />
+);
