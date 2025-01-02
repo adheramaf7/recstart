@@ -5,11 +5,12 @@ type FlashMessage = {
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    app_name: string,
     auth: {
-        user: User;
+        user?: User;
     };
-    flash: FlashMessage | null,
-    permissions: string[] | null,
+    flash?: FlashMessage,
+    permissions?: string[],
 };
 
 type setDataByObject<TForm> = (data: TForm) => void;

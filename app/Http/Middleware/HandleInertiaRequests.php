@@ -33,14 +33,21 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+            'app_name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'flash' => [
-                'id'      => fn () => $request->session()->get('flash_id'),
-                'type'    => fn () => $request->session()->get('flash_type'),
-                'message' => fn () => $request->session()->get('flash_message'),
-            ],
+            'flash' => function () use ($request) {
+                if (!$request->session()->has('flash_message')) {
+                    return null;
+                }
+
+                return [
+                    'id'      => $request->session()->get('flash_id'),
+                    'type'    => $request->session()->get('flash_type'),
+                    'message' => $request->session()->get('flash_message'),
+                ];
+            },
             'permissions' => function () use ($request) {
                 $user = $request->user();
 

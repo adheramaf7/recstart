@@ -1,81 +1,60 @@
-import ApplicationLogo from "@/components/application-logo";
-import { ApplicationMenubar } from "@/components/application-menubar";
-import ApplicationSheetMenu from "@/components/application-sheet-menu";
-import { Button } from "@/components/ui/button";
-import UserDropdown from "@/components/user-dropdown";
-import { PageProps } from "@/types";
-import { usePage } from "@inertiajs/react";
-import React, { PropsWithChildren, useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { LuGanttChart } from "react-icons/lu";
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Head } from "@inertiajs/react";
 
 export default function MainLayout({
     children,
     title,
-    subTitle,
-    pageToolbar,
-}: PropsWithChildren<{
+}: {
+    children: React.ReactNode;
     title: string;
-    subTitle?: string;
-    pageToolbar?: React.ReactNode;
-}>) {
-    const pageProps = usePage<PageProps>().props;
-
-    useEffect(() => {
-        if (pageProps.flash?.type == "success") {
-            toast.success(pageProps.flash.message);
-        } else if (pageProps.flash?.type == "error") {
-            toast.error(pageProps.flash.message);
-        } else {
-            toast.remove();
-        }
-
-        return () => {
-            toast.remove();
-            console.log("cleanup toast");
-        };
-    }, [pageProps.flash?.id]);
-
+}) {
     return (
-        <>
-            <header className="fixed top-0 z-50 w-screen h-16 bg-white border-b shadow-sm">
-                <div className="container flex flex-row items-center justify-between h-full">
-                    <div className="flex flex-row">
-                        <ApplicationSheetMenu />
-                        <ApplicationLogo className="hidden h-10 md:block" />
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+                <Head title={title} />
+                <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                    <div className="flex items-center gap-2 px-4">
+                        <SidebarTrigger className="-ml-1" />
+                        <Separator
+                            orientation="vertical"
+                            className="mr-2 h-4"
+                        />
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="hidden md:block">
+                                    <BreadcrumbLink href="#">
+                                        Building Your Application
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator className="hidden md:block" />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        Data Fetching
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                     </div>
-                    <UserDropdown />
+                </header>
+                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                    {children}
                 </div>
-            </header>
-            <div className="flex flex-col h-full min-h-screen pt-16 bg-gray-100">
-                <nav className="hidden w-full bg-white border-b h-14 md:block">
-                    <div className="container flex items-center h-full">
-                        <ApplicationMenubar />
-                    </div>
-                </nav>
-                <main className="container pt-4">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="space-y-2">
-                            {title && (
-                                <h2 className="text-2xl font-semibold tracking-tight">
-                                    {title}
-                                </h2>
-                            )}
-                            {subTitle && (
-                                <p className="text-sm tracking-tight text-muted-foreground">
-                                    {subTitle}
-                                </p>
-                            )}
-                        </div>
-                        <div>{pageToolbar}</div>
-                    </div>
-                    <section>{children}</section>
-                </main>
-                <footer className="container pt-10 pb-4 mt-auto text-xs text-gray-600">
-                    Copyright &copy; {new Date().getFullYear()}
-                </footer>
-            </div>
-            <Toaster position="top-center" />
-        </>
+            </SidebarInset>
+        </SidebarProvider>
     );
 }
