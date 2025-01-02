@@ -2,11 +2,14 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from "@/components/ui/sidebar";
 import { Link } from "@inertiajs/react";
 import ApplicationLogo from "./application-logo";
 
 export function TopSidebar() {
+    const sidebar = useSidebar();
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -16,16 +19,16 @@ export function TopSidebar() {
                     asChild
                 >
                     <Link href="/dashboard">
-                        <ApplicationLogo className="w-3/4" />
+                        {sidebar.state === "expanded" && (
+                            <ApplicationLogo className="w-3/4" />
+                        )}
+                        {sidebar.state === "collapsed" && (
+                            <img
+                                src="/images/dark-icon.png"
+                                className="aspect-square size-8"
+                            />
+                        )}
                     </Link>
-                    {/* <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-                        <img src="/images/dark-icon.png" />
-                    </div>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold text-2xl">
-                            {props.app_name}
-                        </span>
-                    </div> */}
                 </SidebarMenuButton>
             </SidebarMenuItem>
         </SidebarMenu>
