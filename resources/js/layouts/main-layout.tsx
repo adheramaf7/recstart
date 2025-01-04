@@ -14,18 +14,21 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { PageProps } from "@/types";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import { toast, Toaster } from "react-hot-toast";
 
 export default function MainLayout({
     children,
     title,
+    subtitle,
 }: {
     children: React.ReactNode;
     title: string;
+    subtitle?: string;
 }) {
-    const flash = usePage<PageProps>().props.flash;
+    const { props } = usePage<PageProps>();
+    const flash = props.flash;
 
     useEffect(() => {
         if (flash?.message) {
@@ -53,15 +56,13 @@ export default function MainLayout({
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem className="hidden md:block">
-                                    <BreadcrumbLink href="#">
-                                        Building Your Application
+                                    <BreadcrumbLink asChild>
+                                        <Link href="/"> {props.app_name}</Link>
                                     </BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator className="hidden md:block" />
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>
-                                        Data Fetching
-                                    </BreadcrumbPage>
+                                    <BreadcrumbPage>{title}</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>

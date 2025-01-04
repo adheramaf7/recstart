@@ -22,6 +22,7 @@ import {
     PlusCircleIcon,
     SearchIcon,
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 type TFilterRole = Role & { users_count: number };
 
@@ -77,103 +78,109 @@ export default function Index({ users, roles, filters }: IndexProps) {
     }, [debouncedDataFilter]);
 
     return (
-        <div className="bg-white rounded-md shadow">
-            <div className="flex flex-row p-5 gap-x-2">
-                <div className="relative flex items-center w-full max-w-xs">
-                    <SearchIcon className="absolute ml-2 text-gray-400" />
-                    <Input
-                        type="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Type here to search..."
-                        className="pl-8 placeholder:text-gray-400"
-                    />
-                </div>
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Button variant="outline" className="text-gray-700">
-                            {dataFilter.roles.length > 0 ? (
-                                <FilterIcon className="mr-2" />
-                            ) : (
-                                <FilterXIcon className="mr-2" />
-                            )}{" "}
-                            Role
-                            {dataFilter.roles.length > 0 && (
-                                <>
-                                    <Separator
-                                        orientation="vertical"
-                                        className="mx-2"
-                                    />
-                                    <Badge
-                                        variant={"secondary"}
-                                        className="text-gray-500"
-                                    >
-                                        {dataFilter.roles.length} selected
-                                    </Badge>
-                                </>
-                            )}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="p-2 pt-4 w-52" align="start">
-                        <div className="space-y-3">
-                            {roles.map((role) => (
-                                <div
-                                    className="flex justify-between"
-                                    key={role.id}
-                                >
-                                    <label className="flex items-center">
-                                        <Checkbox
-                                            value={role.id}
-                                            checked={dataFilter.roles.includes(
-                                                String(role.id)
-                                            )}
-                                            onCheckedChange={(checked) => {
-                                                handleOnRoleCheckedChange(
-                                                    String(role.id),
-                                                    checked
-                                                );
-                                            }}
+        <Card>
+            <CardContent className="p-0">
+                <div className="flex flex-row p-5 gap-x-2">
+                    <div className="relative flex items-center w-full max-w-xs">
+                        <SearchIcon className="absolute ml-2 text-gray-400" />
+                        <Input
+                            type="search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Type here to search..."
+                            className="pl-8 placeholder:text-gray-400"
+                        />
+                    </div>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant="outline" className="text-gray-700">
+                                {dataFilter.roles.length > 0 ? (
+                                    <FilterIcon className="mr-2" />
+                                ) : (
+                                    <FilterXIcon className="mr-2" />
+                                )}{" "}
+                                Role
+                                {dataFilter.roles.length > 0 && (
+                                    <>
+                                        <Separator
+                                            orientation="vertical"
+                                            className="mx-2"
                                         />
-                                        <span className="text-sm ms-2">
-                                            {role.name.replaceAll("-", " ")}
-                                        </span>
-                                    </label>
-                                    <div className="text-sm font-light">
-                                        {role.users_count}
+                                        <Badge
+                                            variant={"secondary"}
+                                            className="text-gray-500"
+                                        >
+                                            {dataFilter.roles.length} selected
+                                        </Badge>
+                                    </>
+                                )}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="p-2 pt-4 w-52" align="start">
+                            <div className="space-y-3">
+                                {roles.map((role) => (
+                                    <div
+                                        className="flex justify-between"
+                                        key={role.id}
+                                    >
+                                        <label className="flex items-center">
+                                            <Checkbox
+                                                value={role.id}
+                                                checked={dataFilter.roles.includes(
+                                                    String(role.id)
+                                                )}
+                                                onCheckedChange={(checked) => {
+                                                    handleOnRoleCheckedChange(
+                                                        String(role.id),
+                                                        checked
+                                                    );
+                                                }}
+                                            />
+                                            <span className="text-sm ms-2">
+                                                {role.name.replaceAll("-", " ")}
+                                            </span>
+                                        </label>
+                                        <div className="text-sm font-light">
+                                            {role.users_count}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                        {dataFilter.roles.length > 0 && (
-                            <div className="mt-3 space-y-2">
-                                <Separator />
-                                <Button
-                                    variant={"ghost"}
-                                    size={"sm"}
-                                    className="w-full"
-                                    onClick={() => clearRoleFilter()}
-                                >
-                                    Clear
-                                </Button>
+                                ))}
                             </div>
-                        )}
-                    </PopoverContent>
-                </Popover>
+                            {dataFilter.roles.length > 0 && (
+                                <div className="mt-3 space-y-2">
+                                    <Separator />
+                                    <Button
+                                        variant={"ghost"}
+                                        size={"sm"}
+                                        className="w-full"
+                                        onClick={() => clearRoleFilter()}
+                                    >
+                                        Clear
+                                    </Button>
+                                </div>
+                            )}
+                        </PopoverContent>
+                    </Popover>
 
-                <div className="ml-auto">
-                    <Link href={route("users.create")}>
-                        <Button type="button">
-                            <PlusCircleIcon /> New Data
-                        </Button>
-                    </Link>
+                    <div className="ml-auto">
+                        <Link href={route("users.create")}>
+                            <Button type="button">
+                                <PlusCircleIcon /> New Data
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
-            </div>
 
-            <DataTable columns={columns} data={users} globalFilter={search} />
-        </div>
+                <DataTable
+                    columns={columns}
+                    data={users}
+                    globalFilter={search}
+                />
+            </CardContent>
+        </Card>
     );
 }
 
 Index.layout = (page: React.ReactNode) => (
-    <MainLayout title="Users" children={page} />
+    <MainLayout title="Users" subtitle="Manage users data" children={page} />
 );

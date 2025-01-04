@@ -5,6 +5,7 @@ import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
 import FormField, { TFormUser } from "./components/form-field";
 import { ChevronLeftIcon } from "lucide-react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 const PageToolbar = () => {
     return (
@@ -38,24 +39,32 @@ export default function Create({ roles }: CreateProps) {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="p-5 space-y-10 bg-white rounded-md shadow"
-        >
-            <FormField
-                data={data}
-                setData={setData}
-                errors={errors}
-                roles={roles}
-            />
+        <Card>
+            <CardContent>
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-4 pt-5"
+                >
+                    <FormField
+                        data={data}
+                        setData={setData}
+                        errors={errors}
+                        roles={roles}
+                    />
 
-            <div className="flex gap-2">
-                <Button disabled={processing}>Save</Button>
-                <Button disabled={processing} variant={"outline"} asChild>
-                    <Link href={route("users.index")}>Cancel</Link>
-                </Button>
-            </div>
-        </form>
+                    <div className="flex gap-2">
+                        <Button disabled={processing}>Save</Button>
+                        <Button
+                            disabled={processing}
+                            variant={"outline"}
+                            asChild
+                        >
+                            <Link href={route("users.index")}>Cancel</Link>
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+        </Card>
     );
 }
 
