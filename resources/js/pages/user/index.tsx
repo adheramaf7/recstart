@@ -163,7 +163,7 @@ export default function Index({ users, roles, filters }: IndexProps) {
                 <div className="ml-auto">
                     <Link href={route("users.create")}>
                         <Button type="button">
-                            <PlusCircleIcon /> Create User
+                            <PlusCircleIcon /> New Data
                         </Button>
                     </Link>
                 </div>
