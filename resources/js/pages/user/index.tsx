@@ -182,5 +182,5 @@ export default function Index({ users, roles, filters }: IndexProps) {
 }
 
 Index.layout = (page: React.ReactNode) => (
-    <MainLayout title="Users" subtitle="Manage users data" children={page} />
+    <MainLayout title="Users Management" children={page} />
 );
