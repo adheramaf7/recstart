@@ -8,16 +8,13 @@ import MainLayout from "@/layouts/main-layout";
 import { usePermission } from "@/hooks/use-permission";
 
 export default function Edit({
-    auth,
     mustVerifyEmail,
     status,
 }: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
     const { can } = usePermission();
 
     return (
-        <MainLayout title="Profile">
-            <Head title="Profile" />
-
+        <>
             <div className="space-y-6">
                 {can("update-profile") && (
                     <div className="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
@@ -35,6 +32,10 @@ export default function Edit({
                     </div>
                 )}
             </div>
-        </MainLayout>
+        </>
     );
 }
+
+Edit.layout = (page: React.ReactNode) => (
+    <MainLayout title="Edit Profile">{page}</MainLayout>
+);

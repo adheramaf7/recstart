@@ -6,19 +6,8 @@ import { TRoleData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuPlusCircle, LuSearch } from "react-icons/lu";
-
-const PageToolbar = () => {
-    return (
-        <div>
-            <Button asChild>
-                <Link href={route("roles.create")}>
-                    <LuPlusCircle className="mr-2 text-base" /> New Data
-                </Link>
-            </Button>
-        </div>
-    );
-};
+import { PlusCircleIcon, SearchIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 type TIndexProps = PageProps<{ roles: TRoleData[] }>;
 
@@ -26,17 +15,11 @@ export default function Index({ roles }: TIndexProps) {
     const [search, setSearch] = useState<string>("");
 
     return (
-        <MainLayout
-            title="Manage Roles"
-            subTitle="Manage roles data in here."
-            pageToolbar={<PageToolbar />}
-        >
-            <Head title="Roles" />
-
-            <div className="bg-white rounded-md shadow">
+        <Card>
+            <CardContent className="p-0">
                 <div className="flex flex-row justify-between p-5">
                     <div className="relative flex items-center w-full max-w-xs">
-                        <LuSearch className="absolute ml-2 text-gray-400" />
+                        <SearchIcon className="absolute ml-2 text-gray-400" />
                         <Input
                             type="search"
                             value={search}
@@ -45,6 +28,14 @@ export default function Index({ roles }: TIndexProps) {
                             className="pl-8 placeholder:text-gray-400"
                         />
                     </div>
+                    <div>
+                        <Button asChild>
+                            <Link href={route("roles.create")}>
+                                <PlusCircleIcon className="mr-2 text-base" />{" "}
+                                New Data
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <DataTable
@@ -52,7 +43,11 @@ export default function Index({ roles }: TIndexProps) {
                     data={roles}
                     globalFilter={search}
                 />
-            </div>
-        </MainLayout>
+            </CardContent>
+        </Card>
     );
 }
+
+Index.layout = (page: React.ReactNode) => (
+    <MainLayout title="Roles Management" children={page} />
+);

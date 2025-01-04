@@ -1,10 +1,17 @@
 import { useEffect, FormEventHandler } from "react";
-import GuestLayout from "@/layouts/guest-layout";
 import InputError from "@/components/ui/input-error";
-import { Head, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import AuthLayout from "@/layouts/auth-layout";
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -24,36 +31,39 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Confirm Password" />
+        <Card>
+            <CardHeader className="text-center">
+                <CardTitle className="text-xl">Confirm Password</CardTitle>
+                <CardDescription>
+                    This is a secure area of the application. Please confirm
+                    your password before continuing.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form onSubmit={submit} className="flex flex-col gap-4">
+                    <div className="grid gap-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            onChange={(e) =>
+                                setData("password", e.target.value)
+                            }
+                        />
+                        <InputError message={errors.password} />
+                    </div>
 
-            <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your
-                password before continuing.
-            </div>
-
-            <form onSubmit={submit}>
-                <div className="mt-4">
-                    <Label htmlFor="password">Password</Label>
-
-                    <Input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="block w-full mt-1"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Button className="ms-4" disabled={processing}>
+                    <Button type="submit" disabled={processing}>
                         Confirm
                     </Button>
-                </div>
-            </form>
-        </GuestLayout>
+                </form>
+            </CardContent>
+        </Card>
     );
 }
+
+ConfirmPassword.layout = (page: React.ReactNode) => (
+    <AuthLayout children={page} title="Confirm Password" />
+);

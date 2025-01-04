@@ -6,7 +6,6 @@ import { TUserData, columns } from "./components/columns";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LuFilter, LuFilterX, LuPlusCircle, LuSearch } from "react-icons/lu";
 import {
     Popover,
     PopoverContent,
@@ -17,18 +16,13 @@ import { CheckedState } from "@radix-ui/react-checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useDebounce } from "use-debounce";
-
-const PageToolbar = () => {
-    return (
-        <div>
-            <Button asChild>
-                <Link href={route("users.create")}>
-                    <LuPlusCircle className="mr-2 text-base" /> New Data
-                </Link>
-            </Button>
-        </div>
-    );
-};
+import {
+    FilterIcon,
+    FilterXIcon,
+    PlusCircleIcon,
+    SearchIcon,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 type TFilterRole = Role & { users_count: number };
 
@@ -84,17 +78,11 @@ export default function Index({ users, roles, filters }: IndexProps) {
     }, [debouncedDataFilter]);
 
     return (
-        <MainLayout
-            title="Manage Users"
-            subTitle="Manage users data in here."
-            pageToolbar={<PageToolbar />}
-        >
-            <Head title="Users" />
-
-            <div className="bg-white rounded-md shadow">
+        <Card>
+            <CardContent className="p-0">
                 <div className="flex flex-row p-5 gap-x-2">
                     <div className="relative flex items-center w-full max-w-xs">
-                        <LuSearch className="absolute ml-2 text-gray-400" />
+                        <SearchIcon className="absolute ml-2 text-gray-400" />
                         <Input
                             type="search"
                             value={search}
@@ -107,9 +95,9 @@ export default function Index({ users, roles, filters }: IndexProps) {
                         <PopoverTrigger asChild>
                             <Button variant="outline" className="text-gray-700">
                                 {dataFilter.roles.length > 0 ? (
-                                    <LuFilterX className="mr-2" />
+                                    <FilterIcon className="mr-2" />
                                 ) : (
-                                    <LuFilter className="mr-2" />
+                                    <FilterXIcon className="mr-2" />
                                 )}{" "}
                                 Role
                                 {dataFilter.roles.length > 0 && (
@@ -173,6 +161,14 @@ export default function Index({ users, roles, filters }: IndexProps) {
                             )}
                         </PopoverContent>
                     </Popover>
+
+                    <div className="ml-auto">
+                        <Link href={route("users.create")}>
+                            <Button type="button">
+                                <PlusCircleIcon /> New Data
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 <DataTable
@@ -180,7 +176,11 @@ export default function Index({ users, roles, filters }: IndexProps) {
                     data={users}
                     globalFilter={search}
                 />
-            </div>
-        </MainLayout>
+            </CardContent>
+        </Card>
     );
 }
+
+Index.layout = (page: React.ReactNode) => (
+    <MainLayout title="Users Management" children={page} />
+);

@@ -1,15 +1,18 @@
 import MainLayout from "@/layouts/main-layout";
-import AuthenticatedLayout from "@/layouts/main-layout";
-import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Dashboard() {
     return (
-        <MainLayout title="Dashboard">
-            <Head title="Dashboard" />
-
-            <div className="bg-white shadow-sm sm:rounded-lg">
-                <div className="p-6 text-gray-900">Welcome to the jungle!</div>
+        <>
+            <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div className="aspect-video rounded-xl bg-muted/50" />
+                <div className="aspect-video rounded-xl bg-muted/50" />
+                <div className="aspect-video rounded-xl bg-muted/50" />
             </div>
-        </MainLayout>
+            <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        </>
     );
 }
+
+Dashboard.layout = (page: React.ReactNode) => (
+    <MainLayout title="Dashboard">{page}</MainLayout>
+);

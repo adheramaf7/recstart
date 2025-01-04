@@ -4,6 +4,15 @@ import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AuthLayout from "@/layouts/auth-layout";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -17,39 +26,45 @@ export default function ForgotPassword({ status }: { status?: string }) {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Forgot Password" />
+        <Card>
+            <CardHeader className="text-center">
+                <CardTitle className="text-xl">Forgot Your Password?</CardTitle>
+                <CardDescription>
+                    Enter your email below, and we'll send you a link to reset
+                    it.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                {status && (
+                    <div className="mb-4 text-sm font-medium text-green-600">
+                        {status}
+                    </div>
+                )}
 
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
-            </div>
+                <form onSubmit={submit} className="flex flex-col gap-6">
+                    <div className="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            placeholder="youremail@mail.com"
+                            onChange={(e) => setData("email", e.target.value)}
+                            required
+                        />
+                        <InputError message={errors.email} />
+                    </div>
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
-
-            <form onSubmit={submit}>
-                <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    className="block w-full mt-1"
-                    onChange={(e) => setData("email", e.target.value)}
-                />
-
-                <InputError message={errors.email} className="mt-2" />
-
-                <div className="flex items-center justify-end mt-4">
-                    <Button className="ms-4" disabled={processing}>
+                    <Button disabled={processing}>
                         Email Password Reset Link
                     </Button>
-                </div>
-            </form>
-        </GuestLayout>
+                </form>
+            </CardContent>
+        </Card>
     );
 }
+
+ForgotPassword.layout = (page: React.ReactNode) => (
+    <AuthLayout children={page} title="Forgot Password" />
+);

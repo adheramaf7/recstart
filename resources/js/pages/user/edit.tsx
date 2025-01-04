@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import MainLayout from "@/layouts/main-layout";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { LuChevronLeft } from "react-icons/lu";
 import FormField, { TFormUser } from "./components/form-field";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
 import { TUserData } from "./components/columns";
+import { ChevronLeftIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const PageToolbar = () => {
     return (
         <div>
             <Button variant={"outline"} asChild>
                 <Link href={route("users.index")}>
-                    <LuChevronLeft className="mr-2 text-base" /> Back
+                    <ChevronLeftIcon className="mr-2 text-base" /> Back
                 </Link>
             </Button>
         </div>
@@ -24,7 +25,7 @@ type EditProps = PageProps<{
     roles: Role[];
 }>;
 
-const Edit = ({ user, roles }: EditProps) => {
+export default function Edit({ user, roles }: EditProps) {
     const { data, setData, errors, processing, put } = useForm<TFormUser>({
         name: user.name,
         email: user.email,
@@ -40,28 +41,35 @@ const Edit = ({ user, roles }: EditProps) => {
     };
 
     return (
-        <MainLayout
-            title="Edit User"
-            subTitle="Fill the form below to edit data."
-            pageToolbar={<PageToolbar />}
-        >
-            <Head title="Edit User" />
+        <Card>
+            <CardContent>
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-4 pt-5"
+                >
+                    <FormField
+                        data={data}
+                        setData={setData}
+                        errors={errors}
+                        roles={roles}
+                    />
 
-            <form
-                onSubmit={handleSubmit}
-                className="p-5 space-y-10 bg-white rounded-md shadow"
-            >
-                <FormField
-                    data={data}
-                    setData={setData}
-                    errors={errors}
-                    roles={roles}
-                />
-
-                <Button disabled={processing}>Save</Button>
-            </form>
-        </MainLayout>
+                    <div className="flex gap-2">
+                        <Button disabled={processing}>Save</Button>
+                        <Button
+                            disabled={processing}
+                            variant={"outline"}
+                            asChild
+                        >
+                            <Link href={route("users.index")}>Cancel</Link>
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+        </Card>
     );
-};
+}
 
-export default Edit;
+Edit.layout = (page: React.ReactNode) => (
+    <MainLayout title="Edit User" children={page} />
+);
