@@ -22,7 +22,7 @@ type CreateProps = PageProps<{
     roles: Role[];
 }>;
 
-const Create = ({ roles }: CreateProps) => {
+export default function Create({ roles }: CreateProps) {
     const { data, setData, errors, processing, post } = useForm<TFormUser>({
         name: "",
         email: "",
@@ -38,28 +38,27 @@ const Create = ({ roles }: CreateProps) => {
     };
 
     return (
-        <MainLayout
-            title="Create User"
-            subTitle="Fill the form below to create new data."
-            pageToolbar={<PageToolbar />}
+        <form
+            onSubmit={handleSubmit}
+            className="p-5 space-y-10 bg-white rounded-md shadow"
         >
-            <Head title="Create User" />
+            <FormField
+                data={data}
+                setData={setData}
+                errors={errors}
+                roles={roles}
+            />
 
-            <form
-                onSubmit={handleSubmit}
-                className="p-5 space-y-10 bg-white rounded-md shadow"
-            >
-                <FormField
-                    data={data}
-                    setData={setData}
-                    errors={errors}
-                    roles={roles}
-                />
-
+            <div className="flex gap-2">
                 <Button disabled={processing}>Save</Button>
-            </form>
-        </MainLayout>
+                <Button disabled={processing} variant={"outline"} asChild>
+                    <Link href={route("users.index")}>Cancel</Link>
+                </Button>
+            </div>
+        </form>
     );
-};
+}
 
-export default Create;
+Create.layout = (page: React.ReactNode) => (
+    <MainLayout title="Create User" children={page} />
+);

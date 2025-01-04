@@ -13,7 +13,10 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Head } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { Head, usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function MainLayout({
     children,
@@ -22,6 +25,19 @@ export default function MainLayout({
     children: React.ReactNode;
     title: string;
 }) {
+    const flash = usePage<PageProps>().props.flash;
+
+    useEffect(() => {
+        if (flash?.message) {
+            console.info(flash);
+            if (flash.type === "success") {
+                toast.success(flash.message);
+            }
+            if (flash.type === "error") {
+                toast.error(flash.message);
+            }
+        }
+    }, [flash?.id]);
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -55,6 +71,7 @@ export default function MainLayout({
                     {children}
                 </div>
             </SidebarInset>
+            <Toaster position="top-center" reverseOrder={false} />
         </SidebarProvider>
     );
 }

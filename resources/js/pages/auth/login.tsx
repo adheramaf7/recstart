@@ -17,9 +17,11 @@ import {
 export default function Login({
     status,
     canResetPassword,
+    canRegister,
 }: {
     status?: string;
     canResetPassword: boolean;
+    canRegister: boolean;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
@@ -44,6 +46,11 @@ export default function Login({
                 <CardDescription>Login with your account</CardDescription>
             </CardHeader>
             <CardContent>
+                {status && (
+                    <div className="mb-4 text-sm font-medium text-green-600">
+                        {status}
+                    </div>
+                )}
                 <form onSubmit={submit}>
                     <div className="grid gap-6">
                         {/* <div className="flex flex-col gap-4">
@@ -139,15 +146,17 @@ export default function Login({
                                 Login
                             </Button>
                         </div>
-                        <div className="text-center text-sm">
-                            Don&apos;t have an account?{" "}
-                            <a
-                                href="#"
-                                className="underline underline-offset-4"
-                            >
-                                Sign up
-                            </a>
-                        </div>
+                        {canRegister && (
+                            <div className="text-center text-sm">
+                                Don&apos;t have an account?{" "}
+                                <Link
+                                    href="/register"
+                                    className="underline underline-offset-4"
+                                >
+                                    Sign up
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </form>
             </CardContent>

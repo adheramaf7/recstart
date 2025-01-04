@@ -24,7 +24,7 @@ type EditProps = PageProps<{
     roles: Role[];
 }>;
 
-const Edit = ({ user, roles }: EditProps) => {
+export default function Edit({ user, roles }: EditProps) {
     const { data, setData, errors, processing, put } = useForm<TFormUser>({
         name: user.name,
         email: user.email,
@@ -40,28 +40,27 @@ const Edit = ({ user, roles }: EditProps) => {
     };
 
     return (
-        <MainLayout
-            title="Edit User"
-            subTitle="Fill the form below to edit data."
-            pageToolbar={<PageToolbar />}
+        <form
+            onSubmit={handleSubmit}
+            className="p-5 space-y-10 bg-white rounded-md shadow"
         >
-            <Head title="Edit User" />
+            <FormField
+                data={data}
+                setData={setData}
+                errors={errors}
+                roles={roles}
+            />
 
-            <form
-                onSubmit={handleSubmit}
-                className="p-5 space-y-10 bg-white rounded-md shadow"
-            >
-                <FormField
-                    data={data}
-                    setData={setData}
-                    errors={errors}
-                    roles={roles}
-                />
-
+            <div className="flex gap-2">
                 <Button disabled={processing}>Save</Button>
-            </form>
-        </MainLayout>
+                <Button disabled={processing} variant={"outline"} asChild>
+                    <Link href={route("users.index")}>Cancel</Link>
+                </Button>
+            </div>
+        </form>
     );
-};
+}
 
-export default Edit;
+Edit.layout = (page: React.ReactNode) => (
+    <MainLayout title="Edit User" children={page} />
+);

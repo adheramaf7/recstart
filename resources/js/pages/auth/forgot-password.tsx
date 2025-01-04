@@ -28,9 +28,9 @@ export default function ForgotPassword({ status }: { status?: string }) {
     return (
         <Card>
             <CardHeader className="text-center">
-                <CardTitle className="text-xl">Reset Your Password</CardTitle>
+                <CardTitle className="text-xl">Forgot Your Password?</CardTitle>
                 <CardDescription>
-                    Enter your email below, and we’ll send you a link to reset
+                    Enter your email below, and we'll send you a link to reset
                     it.
                 </CardDescription>
             </CardHeader>
@@ -49,7 +49,6 @@ export default function ForgotPassword({ status }: { status?: string }) {
                             type="email"
                             name="email"
                             value={data.email}
-                            className="block w-full mt-1"
                             placeholder="youremail@mail.com"
                             onChange={(e) => setData("email", e.target.value)}
                             required
