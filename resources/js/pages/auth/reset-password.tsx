@@ -1,10 +1,17 @@
 import { useEffect, FormEventHandler } from "react";
-import GuestLayout from "@/layouts/guest-layout";
 import InputError from "@/components/ui/input-error";
-import { Head, useForm } from "@inertiajs/react";
-import { Label } from "@radix-ui/react-label";
+import { useForm } from "@inertiajs/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import AuthLayout from "@/layouts/auth-layout";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export default function ResetPassword({
     token,
@@ -33,69 +40,60 @@ export default function ResetPassword({
     };
 
     return (
-        <GuestLayout>
-            <Head title="Reset Password" />
+        <Card>
+            <CardHeader className="text-center">
+                <CardTitle className="text-xl">Reset Your Password</CardTitle>
+                <CardDescription>
+                    Enter your email below, and we’ll send you a link to reset
+                    it.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form onSubmit={submit} className="flex flex-col gap-4">
+                    <div className="grid gap-2">
+                        <Label htmlFor="password">New Password</Label>
 
-            <form onSubmit={submit}>
-                <div>
-                    <Label htmlFor="email">Email</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            autoComplete="new-password"
+                            onChange={(e) =>
+                                setData("password", e.target.value)
+                            }
+                        />
 
-                    <Input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        autoComplete="username"
-                        onChange={(e) => setData("email", e.target.value)}
-                    />
+                        <InputError message={errors.password} />
+                    </div>
 
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="password_confirmation">
+                            Re-enter New Password
+                        </Label>
 
-                <div className="mt-4">
-                    <Label htmlFor="password">Password</Label>
+                        <Input
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            autoComplete="new-password"
+                            onChange={(e) =>
+                                setData("password_confirmation", e.target.value)
+                            }
+                        />
 
-                    <Input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="block w-full mt-1"
-                        autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
+                        <InputError message={errors.password_confirmation} />
+                    </div>
 
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <Label htmlFor="password_confirmation">
-                        Confirm Password
-                    </Label>
-
-                    <Input
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="block w-full mt-1"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Button className="ms-4" disabled={processing}>
+                    <Button type="submit" disabled={processing}>
                         Reset Password
                     </Button>
-                </div>
-            </form>
-        </GuestLayout>
+                </form>
+            </CardContent>
+        </Card>
     );
 }
+
+ResetPassword.layout = (page: React.ReactNode) => (
+    <AuthLayout title="Reset Password" children={page} />
+);

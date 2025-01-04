@@ -1,4 +1,3 @@
-import { LuKeyRound, LuLayoutDashboard } from "react-icons/lu";
 import {
     Menubar,
     MenubarContent,
@@ -6,11 +5,9 @@ import {
     MenubarMenu,
     MenubarTrigger,
 } from "./ui/menubar";
-import { Link, usePage } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import { useMemo } from "react";
-import { TMenu, menus } from "@/constants/menu";
+import { Link } from "@inertiajs/react";
 import { usePermission } from "@/hooks/use-permission";
+import { KeyRoundIcon, LayoutDashboardIcon } from "lucide-react";
 
 export function ApplicationMenubar() {
     const { can } = usePermission();
@@ -20,7 +17,7 @@ export function ApplicationMenubar() {
             <MenubarMenu>
                 <MenubarTrigger asChild>
                     <Link href={route("dashboard")}>
-                        <LuLayoutDashboard className="mr-1" />
+                        <LayoutDashboardIcon className="mr-1" />
                         Dashboard
                     </Link>
                 </MenubarTrigger>
@@ -28,7 +25,7 @@ export function ApplicationMenubar() {
             {can("view-user", "view-role") && (
                 <MenubarMenu>
                     <MenubarTrigger>
-                        <LuKeyRound className="mr-1" /> Access Management
+                        <KeyRoundIcon className="mr-1" /> Access Management
                     </MenubarTrigger>
                     <MenubarContent>
                         {can("view-user") && (
