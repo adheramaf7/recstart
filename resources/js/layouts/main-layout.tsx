@@ -32,7 +32,6 @@ export default function MainLayout({
 
     useEffect(() => {
         if (flash?.message) {
-            console.info(flash);
             if (flash.type === "success") {
                 toast.success(flash.message);
             }
@@ -68,7 +67,7 @@ export default function MainLayout({
                         </Breadcrumb>
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="container flex flex-1 flex-col gap-4 p-4 pt-0">
                     {children}
                 </div>
             </SidebarInset>
