@@ -6,7 +6,13 @@ import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
 import { TUserData } from "./components/columns";
 import { ChevronLeftIcon } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 const PageToolbar = () => {
     return (
@@ -41,32 +47,27 @@ export default function Edit({ user, roles }: EditProps) {
     };
 
     return (
-        <Card>
-            <CardContent>
-                <form
-                    onSubmit={handleSubmit}
-                    className="flex flex-col gap-4 pt-5"
-                >
+        <form onSubmit={handleSubmit}>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Edit User</CardTitle>
+                </CardHeader>
+                <CardContent>
                     <FormField
                         data={data}
                         setData={setData}
                         errors={errors}
                         roles={roles}
                     />
-
-                    <div className="flex gap-2">
-                        <Button disabled={processing}>Save</Button>
-                        <Button
-                            disabled={processing}
-                            variant={"outline"}
-                            asChild
-                        >
-                            <Link href={route("users.index")}>Cancel</Link>
-                        </Button>
-                    </div>
-                </form>
-            </CardContent>
-        </Card>
+                </CardContent>
+                <CardFooter className="gap-2">
+                    <Button disabled={processing}>Save</Button>
+                    <Button disabled={processing} variant={"outline"} asChild>
+                        <Link href={route("users.index")}>Cancel</Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </form>
     );
 }
 

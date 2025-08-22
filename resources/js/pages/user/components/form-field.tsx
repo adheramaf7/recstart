@@ -29,14 +29,14 @@ const FormField = ({ data, setData, errors, roles }: TFormFieldProps) => {
     return (
         <div className="max-w-xl space-y-8">
             <section>
-                <header>
-                    <h2 className="text-lg font-medium text-gray-900">
+                <div>
+                    <h2 className="font-semibold text-base text-gray-900">
                         User Profile
                     </h2>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="text-sm text-gray-600">
                         User's profile information and email address.
                     </p>
-                </header>
+                </div>
                 <div className="mt-4 space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
@@ -88,14 +88,14 @@ const FormField = ({ data, setData, errors, roles }: TFormFieldProps) => {
                 </div>
             </section>
             <section>
-                <header>
-                    <h2 className="text-lg font-medium text-gray-900">
-                        User Password
+                <div>
+                    <h2 className="font-semibold text-base text-gray-900">
+                        Password
                     </h2>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="text-sm text-gray-600">
                         Ensure using a long, random password to stay secure.
                     </p>
-                </header>
+                </div>
                 <div className="mt-4 space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="password">Password</Label>
